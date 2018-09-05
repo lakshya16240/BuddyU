@@ -112,5 +112,10 @@ public class LoginActivity extends AppCompatActivity
         });
     }
 
+    public void onRegisterButtonClicked(View view)
+    {
+        Intent i = new Intent(getBaseContext(), SignUpActivity.class);
+        startActivity(i);
+    }
 }
 
