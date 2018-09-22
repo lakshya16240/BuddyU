@@ -29,7 +29,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_notifications:
                     return true;
 
-                case R.id.navigation_profile:
+                case R.id.navigation_group:
+                    return true;
+
+                case R.id.navigation_menu:
                     return true;
 
             }
