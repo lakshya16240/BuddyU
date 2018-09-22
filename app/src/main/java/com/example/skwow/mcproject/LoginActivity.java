@@ -122,8 +122,8 @@ public class LoginActivity extends AppCompatActivity {
     public void onSuccessfulLogin() {
         Intent i = new Intent(getBaseContext(), MainActivity.class);
         //i.putExtra("PersonID", mAuth.getCurrentUser().getDisplayName());
-        finish();
         startActivity(i);
+        finish();
     }
 
     public void onSignIn(View view) {
@@ -159,8 +159,8 @@ public class LoginActivity extends AppCompatActivity {
 
     public void onRegisterButtonClicked(View view) {
         Intent i = new Intent(getBaseContext(), SignUpActivity.class);
-        finish();
         startActivity(i);
+        finish();
     }
 }
 

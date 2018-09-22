@@ -52,8 +52,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void onSignInButtonClicked(View view) {
         Intent i = new Intent(getBaseContext(), LoginActivity.class);
-        finish();
         startActivity(i);
+        finish();
     }
 
     /*
@@ -76,13 +76,17 @@ public class SignUpActivity extends AppCompatActivity {
             feedback.setVisibility(View.VISIBLE);
             return false;
         }
+        if (password.length() < 6) {
+            feedback.setText("Password should be at least 6 characters");
+            feedback.setVisibility(View.VISIBLE);
+            return false;
+        }
         if ( !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches() ) {
 //            Toast.makeText(this, "Please enter a valid email", Toast.LENGTH_SHORT).show();
             feedback.setText("This email address is invalid");
             feedback.setVisibility(View.VISIBLE);
             return false;
         }
-
         return true;
     }
 
@@ -92,8 +96,8 @@ public class SignUpActivity extends AppCompatActivity {
     private void onSuccessfulRegistration() {
         Intent i = new Intent(getBaseContext(), MainActivity.class);
 //        i.putExtra("PersonID", mAuth.getCurrentUser().getDisplayName());
-        finish();
         startActivity(i);
+        finish();
     }
 
     public void onRegister(View view) {
@@ -116,7 +120,8 @@ public class SignUpActivity extends AppCompatActivity {
                                 onSuccessfulRegistration();
                             }
                             else {
-                                Toast.makeText(SignUpActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(SignUpActivity.this, "Authentication failed. " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, "Exception: "+task.getException().getMessage());
                             }
                         }
                     });
