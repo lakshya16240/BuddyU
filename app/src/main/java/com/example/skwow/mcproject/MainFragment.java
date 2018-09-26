@@ -1,14 +1,18 @@
 package com.example.skwow.mcproject;
 
 import android.content.Context;
+import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 
 /**
@@ -27,6 +31,9 @@ public class MainFragment extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private CustomPagerAdapter customPagerAdapter;
+    private FloatingActionButton fabPlus, fabCreateEvent;
+    private Animation FabOpen, FabClose, FabRotationClockwise, FabRotationAntiClockwise;
+    private boolean Fab_isOpen;
 
     public MainFragment() {
         // Required empty public constructor
@@ -43,7 +50,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Fab_isOpen = false;
 
     }
 
@@ -53,6 +60,31 @@ public class MainFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
         viewPager = (ViewPager) rootView.findViewById(R.id.viewPager);
+        fabPlus = (FloatingActionButton) rootView.findViewById(R.id.fab_plus);
+        fabCreateEvent = (FloatingActionButton) rootView.findViewById(R.id.fab_createEvent);
+        FabOpen = AnimationUtils.loadAnimation(getContext(), R.anim.fab_open);
+        FabClose = AnimationUtils.loadAnimation(getContext(), R.anim.fab_close);
+        FabRotationClockwise = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_clockwise);
+        FabRotationAntiClockwise = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_anticlockwise);
+
+        fabPlus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if ( Fab_isOpen ) {
+                    fabCreateEvent.startAnimation(FabClose);
+                    fabPlus.startAnimation(FabRotationAntiClockwise);
+                    fabCreateEvent.setClickable(false);
+                    Fab_isOpen = false;
+                }
+                else {
+                    fabCreateEvent.startAnimation(FabOpen);
+                    fabPlus.startAnimation(FabRotationClockwise);
+                    fabCreateEvent.setClickable(true);
+                    Fab_isOpen = true;
+                }
+            }
+        });
+
         customPagerAdapter = new CustomPagerAdapter(getActivity().getSupportFragmentManager());
 
         viewPager.setAdapter(customPagerAdapter);
@@ -62,6 +94,21 @@ public class MainFragment extends Fragment {
 
         return rootView;
     }
+
+//    public void FabAnimationControl(View v) {
+//        if ( Fab_isOpen ) {
+//            fabCreateEvent.startAnimation(FabClose);
+//            fabPlus.startAnimation(FabRotationAntiClockwise);
+//            fabCreateEvent.setClickable(false);
+//            Fab_isOpen = false;
+//        }
+//        else {
+//            fabCreateEvent.startAnimation(FabOpen);
+//            fabPlus.startAnimation(FabRotationClockwise);
+//            fabCreateEvent.setClickable(true);
+//            Fab_isOpen = true;
+//        }
+//    }
 
 
     /**
