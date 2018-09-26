@@ -3,9 +3,7 @@ package com.example.skwow.mcproject;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,26 +12,22 @@ import android.view.ViewGroup;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link MainFragment.OnFragmentInteractionListener} interface
+ * {@link PageFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link MainFragment#newInstance} factory method to
+ * Use the {@link PageFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MainFragment extends Fragment {
+public class PageFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private static final String ARG_PAGE = "arg_page";
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private CustomPagerAdapter customPagerAdapter;
-
-    public MainFragment() {
+    public PageFragment() {
         // Required empty public constructor
     }
 
-    public static MainFragment newInstance(int pageNumber) {
-        MainFragment fragment = new MainFragment();
+    public static PageFragment newInstance(int pageNumber) {
+        PageFragment fragment = new PageFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(ARG_PAGE, pageNumber);
         fragment.setArguments(bundle);
@@ -43,26 +37,20 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-        tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
-        viewPager = (ViewPager) rootView.findViewById(R.id.viewPager);
-        customPagerAdapter = new CustomPagerAdapter(getActivity().getSupportFragmentManager());
-
-        viewPager.setAdapter(customPagerAdapter);
-        tabLayout.setTabsFromPagerAdapter(customPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_page, container, false);
         return rootView;
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
 
     /**
      * This interface must be implemented by activities that contain this
