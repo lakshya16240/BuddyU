@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ public class MainFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private static final String ARG_PAGE = "arg_page";
+    public static final String TAG = "MainFragment";
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -51,7 +53,7 @@ public class MainFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fab_isOpen = false;
-
+        Log.d(TAG, "Main Fragment called from ft.replace()");
     }
 
     @Override
