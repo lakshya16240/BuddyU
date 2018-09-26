@@ -7,17 +7,17 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 public class CustomPagerAdapter extends FragmentStatePagerAdapter {
 
     private int PageCount;
-    private String[] PageTitle = {"All", "Movies", "Sports", "Event", "Trips"};
+    private String[] PageTitle = {"Movies", "Sports", "Event", "Trips"};
 
     public CustomPagerAdapter(FragmentManager fragmentManager) {
         super(fragmentManager);
-        PageCount = 5;
+        PageCount = PageTitle.length;
     }
 
     @Override
     public Fragment getItem(int position) {
-        MainFragment mainFragment = MainFragment.newInstance(position);
-        return mainFragment;
+        PageFragment pageFragment = PageFragment.newInstance(position);
+        return pageFragment;
     }
 
     @Override
