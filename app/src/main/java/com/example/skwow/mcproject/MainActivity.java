@@ -10,13 +10,16 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
+    private BottomNavigationView navigation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        setDefaultFragmentForBottomNav(0);
+
         navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
 
             @Override
@@ -44,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void setDefaultFragmentForBottomNav(int id) {
+        navigation.setSelectedItemId(R.id.navigation_home);
+        changeMainLayout(id);
     }
 
     public void changeMainLayout(int viewId) {
