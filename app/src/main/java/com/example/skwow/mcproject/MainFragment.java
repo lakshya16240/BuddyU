@@ -8,11 +8,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 
 
 /**
@@ -27,12 +29,15 @@ public class MainFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private static final String ARG_PAGE = "arg_page";
+    public static final String TAG = "MainFragment";
 
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private CustomPagerAdapter customPagerAdapter;
     private FloatingActionButton fabPlus, fabCreateEvent;
     private Animation FabOpen, FabClose, FabRotationClockwise, FabRotationAntiClockwise;
+    private LinearLayout fab2_box;
+
     private boolean Fab_isOpen;
 
     public MainFragment() {
@@ -51,7 +56,7 @@ public class MainFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fab_isOpen = false;
-
+        Log.d(TAG, "Main Fragment called from ft.replace()");
     }
 
     @Override
@@ -62,6 +67,8 @@ public class MainFragment extends Fragment {
         viewPager = (ViewPager) rootView.findViewById(R.id.viewPager);
         fabPlus = (FloatingActionButton) rootView.findViewById(R.id.fab_plus);
         fabCreateEvent = (FloatingActionButton) rootView.findViewById(R.id.fab_createEvent);
+        fab2_box = (LinearLayout) rootView.findViewById(R.id.fab2_box);
+
         FabOpen = AnimationUtils.loadAnimation(getContext(), R.anim.fab_open);
         FabClose = AnimationUtils.loadAnimation(getContext(), R.anim.fab_close);
         FabRotationClockwise = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_clockwise);
@@ -71,15 +78,19 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if ( Fab_isOpen ) {
+                    fab2_box.startAnimation(FabClose);
                     fabCreateEvent.startAnimation(FabClose);
                     fabPlus.startAnimation(FabRotationAntiClockwise);
+                    fab2_box.setVisibility(View.INVISIBLE);
                     fabCreateEvent.setClickable(false);
                     Fab_isOpen = false;
                 }
                 else {
+                    fab2_box.startAnimation(FabOpen);
                     fabCreateEvent.startAnimation(FabOpen);
                     fabPlus.startAnimation(FabRotationClockwise);
                     fabCreateEvent.setClickable(true);
+                    fab2_box.setVisibility(View.VISIBLE);
                     Fab_isOpen = true;
                 }
             }
