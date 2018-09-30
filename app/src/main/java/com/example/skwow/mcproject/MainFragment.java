@@ -16,6 +16,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,12 +39,16 @@ public class MainFragment extends Fragment {
     private FloatingActionButton fabPlus, fabCreateEvent;
     private Animation FabOpen, FabClose, FabRotationClockwise, FabRotationAntiClockwise;
     private LinearLayout fab2_box;
-
+    PageFragment pageFragment = new PageFragment();
+    private ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
     private boolean Fab_isOpen;
 
     public MainFragment() {
         // Required empty public constructor
     }
+
+//    MovieFragment movieFragment = new MovieFragment();
+
 
     public static MainFragment newInstance(int pageNumber) {
         MainFragment fragment = new MainFragment();
@@ -57,6 +63,9 @@ public class MainFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Fab_isOpen = false;
         Log.d(TAG, "Main Fragment called from ft.replace()");
+
+
+
     }
 
     @Override
@@ -73,6 +82,11 @@ public class MainFragment extends Fragment {
         FabClose = AnimationUtils.loadAnimation(getContext(), R.anim.fab_close);
         FabRotationClockwise = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_clockwise);
         FabRotationAntiClockwise = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_anticlockwise);
+
+        fragmentArrayList.add(new MovieFragment());
+        fragmentArrayList.add(new SportsFragment());
+        fragmentArrayList.add(new PageFragment());
+        fragmentArrayList.add(new PageFragment());
 
         fabPlus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +110,7 @@ public class MainFragment extends Fragment {
             }
         });
 
-        customPagerAdapter = new CustomPagerAdapter(getActivity().getSupportFragmentManager());
+        customPagerAdapter = new CustomPagerAdapter(getActivity().getSupportFragmentManager(), fragmentArrayList);
 
         viewPager.setAdapter(customPagerAdapter);
         tabLayout.setTabsFromPagerAdapter(customPagerAdapter);

@@ -4,25 +4,32 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import java.util.ArrayList;
+
 public class CustomPagerAdapter extends FragmentStatePagerAdapter {
 
     private int PageCount;
+    private ArrayList<Fragment> fragmentArrayList;
     private String[] PageTitle = {"Movies", "Sports", "Event", "Trips"};
 
-    public CustomPagerAdapter(FragmentManager fragmentManager) {
+    // add arraylist of fragments
+
+    public CustomPagerAdapter(FragmentManager fragmentManager, ArrayList<Fragment> fragmentArrayList) {
         super(fragmentManager);
         PageCount = PageTitle.length;
+        this.fragmentArrayList = fragmentArrayList;
     }
 
     @Override
     public Fragment getItem(int position) {
         PageFragment pageFragment = PageFragment.newInstance(position);
-        return pageFragment;
+        return fragmentArrayList.get(position);
     }
 
     @Override
     public int getCount() {
-        return PageCount;
+        //return PageCount;
+        return fragmentArrayList.size();
     }
 
     @Override
