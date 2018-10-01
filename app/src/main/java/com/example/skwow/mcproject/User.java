@@ -55,5 +55,8 @@ public class User {
         this.sportsInterests = sportsInterests;
     }
 
-
+    @Override
+    public String toString() {
+        return email + " " + sportsInterests;
+    }
 }

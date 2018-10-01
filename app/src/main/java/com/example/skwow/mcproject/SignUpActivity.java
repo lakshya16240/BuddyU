@@ -1,6 +1,8 @@
 package com.example.skwow.mcproject;
 
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,6 +58,25 @@ public class SignUpActivity extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
     }
 
+    public void onChipClick(View view)
+    {
+        if (view instanceof Button)
+        {
+            Button btn = (Button) view;
+            if( btn.getTag().equals("0"))
+            {
+                btn.setTag("1");
+                btn.setBackgroundResource(R.drawable.my_chip_selected);
+            }
+            else
+            {
+                btn.setTag("0");
+                btn.setBackgroundResource(R.drawable.my_chip);
+            }
+        }
+
+    }
+
     public void onSignInButtonClicked(View view) {
         Intent i = new Intent(getBaseContext(), LoginActivity.class);
         startActivity(i);
@@ -99,15 +121,33 @@ public class SignUpActivity extends AppCompatActivity {
     Starts Main activity with user id
      */
     private void onSuccessfulRegistration(FirebaseUser _user) {
+
+        // todo : do this in a separated thread
         User currentUser = new User(_user.getDisplayName(),_user.getEmail());
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users");
-        ArrayList<String> movies = new ArrayList<>(Arrays.asList("Horror", "Comedy", "Drama"));
-        ArrayList<String> sports = new ArrayList<>(Arrays.asList("Cricket", "Badminton", "TableTennis"));
+
+        ArrayList<String> movies = new ArrayList<>();
+        ArrayList<String> sports = new ArrayList<>();
+
+        GridLayout ll = findViewById(R.id.GridLayout1);
+        for (int i = 0; i < ll.getChildCount(); i++)
+        {
+            Button btn = (Button)ll.getChildAt(i);
+            if(btn.getTag().equals("1"))
+                sports.add(btn.getText().toString());
+        }
+
+        ll = findViewById(R.id.GridLayout2);
+        for (int i = 0; i < ll.getChildCount(); i++)
+        {
+            Button btn = (Button)ll.getChildAt(i);
+            if(btn.getTag().equals("1"))
+                movies.add(btn.getText().toString());
+        }
+
         currentUser.setMoviesInterests(movies);
         currentUser.setSportsInterests(sports);
-
-
         myRef.child(_user.getUid()).setValue(currentUser);
 
         Intent i = new Intent(getBaseContext(), MainActivity.class);

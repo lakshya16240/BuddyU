@@ -74,6 +74,122 @@
 
                 </android.support.design.widget.TextInputLayout>
 
+                <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/GridLayout1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="3"
+                    android:rowCount="2"
+                    android:padding= "10dp"
+                    android:orientation="horizontal"
+                    tools:context=".GridXMLActivity" >
+
+                    <Button
+                        android:id="@+id/Cricket"
+                        android:layout_margin="10dp"
+                        android:layout_height="35dp"
+                        android:tag="0"
+                        android:layout_gravity="start|top"
+                        android:background="@drawable/my_chip"
+                        android:onClick="onChipClick"
+                        android:text="Cricket" />
+
+                    <Button
+                        android:id="@+id/BaseBall"
+                        android:layout_margin="10dp"
+                        android:layout_height="35dp"
+                        android:tag="0"
+                        android:layout_gravity="start|top"
+                        android:onClick="onChipClick"
+                        android:background="@drawable/my_chip"
+                        android:text="BaseBall" />
+
+                    <Button
+                        android:id="@+id/Badminton"
+                        android:layout_margin="10dp"
+                        android:tag="0"
+                        android:layout_height="35dp"
+                        android:layout_gravity="start|top"
+                        android:onClick="onChipClick"
+                        android:background="@drawable/my_chip"
+                        android:text="Badminton" />
+
+                    <Button
+                        android:id="@+id/Tennis"
+                        android:layout_margin="10dp"
+                        android:tag="0"
+                        android:layout_height="35dp"
+                        android:layout_gravity="start|top"
+                        android:onClick="onChipClick"
+                        android:background="@drawable/my_chip"
+                        android:text="Tennis" />
+
+                </GridLayout>
+
+                <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/GridLayout2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="3"
+                    android:rowCount="2"
+                    android:padding= "10dp"
+                    android:orientation="horizontal"
+                    tools:context=".GridXMLActivity" >
+
+                    <Button
+                        android:id="@+id/Horror"
+                        android:layout_margin="10dp"
+                        android:layout_height="35dp"
+                        android:tag="0"
+                        android:layout_gravity="start|top"
+                        android:background="@drawable/my_chip"
+                        android:onClick="onChipClick"
+                        android:text="Horror" />
+
+                    <Button
+                        android:id="@+id/Comedy"
+                        android:layout_margin="10dp"
+                        android:layout_height="35dp"
+                        android:tag="0"
+                        android:layout_gravity="start|top"
+                        android:onClick="onChipClick"
+                        android:background="@drawable/my_chip"
+                        android:text="Comedy" />
+
+                    <Button
+                        android:id="@+id/Drama"
+                        android:layout_margin="10dp"
+                        android:tag="0"
+                        android:layout_height="35dp"
+                        android:layout_gravity="start|top"
+                        android:onClick="onChipClick"
+                        android:background="@drawable/my_chip"
+                        android:text="Drama" />
+
+                    <Button
+                        android:id="@+id/Cartoon"
+                        android:layout_margin="10dp"
+                        android:tag="0"
+                        android:layout_height="35dp"
+                        android:layout_gravity="start|top"
+                        android:onClick="onChipClick"
+                        android:background="@drawable/my_chip"
+                        android:text="Cartoon" />
+
+                    <Button
+                        android:id="@+id/SciFi"
+                        android:layout_margin="10dp"
+                        android:tag="0"
+                        android:layout_height="35dp"
+                        android:layout_gravity="start|top"
+                        android:onClick="onChipClick"
+                        android:background="@drawable/my_chip"
+                        android:text="SciFi" />
+
+                </GridLayout>
+
                 <TextView
                     android:id="@+id/feedback"
                     android:layout_width="match_parent"
