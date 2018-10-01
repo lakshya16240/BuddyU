@@ -24,9 +24,12 @@ public class User {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String username, String email) {
+    public User(String username, String email, ArrayList<String> _moviesInterests, ArrayList<String> _sportsInterests)
+    {
         this.username = username;
         this.email = email;
+        moviesInterests = _moviesInterests;
+        sportsInterests = _sportsInterests;
     }
 
 

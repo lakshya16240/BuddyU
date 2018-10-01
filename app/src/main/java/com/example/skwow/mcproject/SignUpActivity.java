@@ -123,7 +123,6 @@ public class SignUpActivity extends AppCompatActivity {
     private void onSuccessfulRegistration(FirebaseUser _user) {
 
         // todo : do this in a separated thread
-        User currentUser = new User(_user.getDisplayName(),_user.getEmail());
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users");
 
@@ -146,8 +145,7 @@ public class SignUpActivity extends AppCompatActivity {
                 movies.add(btn.getText().toString());
         }
 
-        currentUser.setMoviesInterests(movies);
-        currentUser.setSportsInterests(sports);
+        User currentUser = new User(_user.getDisplayName(),_user.getEmail(),movies,sports);
         myRef.child(_user.getUid()).setValue(currentUser);
 
         Intent i = new Intent(getBaseContext(), MainActivity.class);

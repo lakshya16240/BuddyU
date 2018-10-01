@@ -38,6 +38,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +80,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null) {
             Toast.makeText(LoginActivity.this, "Already logged in", Toast.LENGTH_SHORT).show();
-            onSuccessfulLogin();
+            onSuccessfulLogin(currentUser);
         }
 
     }
@@ -119,7 +124,26 @@ public class LoginActivity extends AppCompatActivity {
     /*
     Starts Main activity with user id
      */
-    public void onSuccessfulLogin() {
+    public void onSuccessfulLogin(FirebaseUser user) {
+
+        // todo : do this in a separated thread
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("users").child(user.getUid());
+
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                User u = dataSnapshot.getValue(User.class);
+                User.currentUser = u;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
         Intent i = new Intent(getBaseContext(), MainActivity.class);
         //i.putExtra("PersonID", mAuth.getCurrentUser().getDisplayName());
         startActivity(i);
@@ -144,7 +168,7 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d(TAG, "signInWithEmail:success");
                         Toast.makeText(getApplicationContext(), "Authentication successful.", Toast.LENGTH_SHORT).show();
                         FirebaseUser user = mAuth.getCurrentUser();
-                        onSuccessfulLogin();
+                        onSuccessfulLogin(user);
                     }
                     else {
                         Log.w(TAG, "signInWithEmail:failure", task.getException());
