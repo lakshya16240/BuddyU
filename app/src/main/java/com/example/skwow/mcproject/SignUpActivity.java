@@ -21,6 +21,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class SignUpActivity extends AppCompatActivity {
 
     private static final String TAG = "SIGNUP";
@@ -99,6 +102,11 @@ public class SignUpActivity extends AppCompatActivity {
         User currentUser = new User(_user.getDisplayName(),_user.getEmail());
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users");
+        ArrayList<String> movies = new ArrayList<>(Arrays.asList("Horror", "Comedy", "Drama"));
+        ArrayList<String> sports = new ArrayList<>(Arrays.asList("Cricket", "Badminton", "TableTennis"));
+        currentUser.setMoviesInterests(movies);
+        currentUser.setSportsInterests(sports);
+
 
         myRef.child(_user.getUid()).setValue(currentUser);
 
