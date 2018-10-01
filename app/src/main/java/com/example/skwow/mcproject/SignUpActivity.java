@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -93,9 +95,14 @@ public class SignUpActivity extends AppCompatActivity {
     /*
     Starts Main activity with user id
      */
-    private void onSuccessfulRegistration() {
+    private void onSuccessfulRegistration(FirebaseUser _user) {
+        User currentUser = new User(_user.getDisplayName(),_user.getEmail());
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("users");
+
+        myRef.child(_user.getUid()).setValue(currentUser);
+
         Intent i = new Intent(getBaseContext(), MainActivity.class);
-//        i.putExtra("PersonID", mAuth.getCurrentUser().getDisplayName());
         startActivity(i);
         finish();
     }
@@ -117,7 +124,7 @@ public class SignUpActivity extends AppCompatActivity {
                             progressBar.setVisibility(View.GONE);
                             if (task.isSuccessful()) {
                                 FirebaseUser user = mAuth.getCurrentUser();
-                                onSuccessfulRegistration();
+                                onSuccessfulRegistration(user);
                             }
                             else {
                                 Toast.makeText(SignUpActivity.this, "Authentication failed. " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
