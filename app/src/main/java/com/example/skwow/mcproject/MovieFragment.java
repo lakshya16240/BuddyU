@@ -34,7 +34,7 @@ public class MovieFragment extends Fragment{
         );
 
         movieList.add(
-                new Movie(3, "", 4.4, "book", "English", R.drawable.raazi)
+                new Movie(3, "Raazi", 4.4, "book", "English", R.drawable.raazi)
         );
         movieList.add(
                 new Movie(1, "Iron Man", 4.4, "book", "Hindi", R.drawable.ironman)
@@ -44,9 +44,8 @@ public class MovieFragment extends Fragment{
         );
 
         movieList.add(
-                new Movie(3, "", 4.4, "book", "English", R.drawable.raazi)
+                new Movie(3, "Raazi", 4.4, "book", "English", R.drawable.raazi)
         );
-
 
         adapter = new MovieAdapter(getActivity(), movieList);
 

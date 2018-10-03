@@ -1,7 +1,6 @@
 package com.example.skwow.mcproject;
 
 import android.content.Context;
-import android.media.midi.MidiOutputPort;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHolder>{
@@ -28,7 +26,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        View view = layoutInflater.inflate(R.layout.list_layout, null);
+        View view = layoutInflater.inflate(R.layout.list_layout_movie, null);
         return new MovieViewHolder(view);
     }
 
@@ -37,7 +35,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
         Movie event = movieList.get(i);
         movieViewHolder.textViewTitle.setText(event.getTitle());
-        movieViewHolder.textViewRating.setText(String.valueOf(event.getRating()));
+
         movieViewHolder.textViewLanguage.setText(event.getLanguage());
         movieViewHolder.imageView.setImageDrawable(context.getResources().getDrawable(event.getImage()));
     }
@@ -50,7 +48,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     class MovieViewHolder extends RecyclerView.ViewHolder{
 
         ImageView imageView;
-        TextView textViewTitle, textViewLanguage, textViewRating;
+        TextView textViewTitle, textViewLanguage;
         Button book;
 
         public MovieViewHolder(@NonNull View itemView) {
@@ -59,7 +57,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             imageView = itemView.findViewById(R.id.imageView);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewLanguage = itemView.findViewById(R.id.textViewLanguage);
-            textViewRating = itemView.findViewById(R.id.textViewRating);
+
             book = itemView.findViewById(R.id.book);
         }
     }

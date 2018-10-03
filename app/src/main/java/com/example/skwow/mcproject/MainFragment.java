@@ -86,7 +86,7 @@ public class MainFragment extends Fragment {
         fragmentArrayList.add(new MovieFragment());
         fragmentArrayList.add(new SportsFragment());
         fragmentArrayList.add(new PageFragment());
-        fragmentArrayList.add(new PageFragment());
+        fragmentArrayList.add(new TripFragment());
 
         fabPlus.setOnClickListener(new View.OnClickListener() {
             @Override

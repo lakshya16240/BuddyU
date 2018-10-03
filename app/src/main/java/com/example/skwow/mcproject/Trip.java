@@ -1,33 +1,36 @@
 package com.example.skwow.mcproject;
 
-public class Sports {
+public class Trip {
+
     private int id;
     private String title;
 
-    private String venue;
 
+    private String book;
+    private double rating;
     private int image;
 
-    public Sports(int id, String title, String venue, String book, int image) {
+    public Trip(int id, String title, String book, double rating, int image) {
         this.id = id;
         this.title = title;
-            this.venue = venue;
 
+        this.book = book;
         this.image = image;
+        this.rating = rating;
     }
 
     public int getId() {
         return id;
     }
+    public String getBook() {
+        return book;
+    }
 
     public String getTitle() {
         return title;
     }
-
-
-
-    public String getVenue() {
-        return venue;
+    public double getRating() {
+        return rating;
     }
 
 
