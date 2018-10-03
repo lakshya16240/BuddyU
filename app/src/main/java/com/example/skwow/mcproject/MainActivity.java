@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
@@ -77,6 +79,25 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         ft.commit();
+    }
+
+    public void onChipClick(View view)
+    {
+        if (view instanceof Button)
+        {
+            Button btn = (Button) view;
+            if( btn.getTag().equals("0"))
+            {
+                btn.setTag("1");
+                btn.setBackgroundResource(R.drawable.my_chip_selected);
+            }
+            else
+            {
+                btn.setTag("0");
+                btn.setBackgroundResource(R.drawable.my_chip);
+            }
+        }
+
     }
 
 }

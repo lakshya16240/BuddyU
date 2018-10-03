@@ -134,6 +134,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User u = dataSnapshot.getValue(User.class);
+                u.setUID(user.getUid());
                 User.currentUser = u;
             }
 

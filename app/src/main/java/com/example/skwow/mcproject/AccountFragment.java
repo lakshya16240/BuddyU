@@ -9,9 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 
 /**
@@ -44,6 +50,8 @@ public class AccountFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_account, container, false);
         Button logoutBtn = root.findViewById(R.id.Logout);
+        Button saveProfile = root.findViewById(R.id.saveProfile);
+
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -52,7 +60,66 @@ public class AccountFragment extends Fragment {
                 startActivity(i);
             }
         });
+
+        saveProfile.setOnClickListener((view) ->{
+            onSave(root);
+        });
+
+        GridLayout ll = root.findViewById(R.id.GridLayout1);
+        for (int i = 0; i < ll.getChildCount(); i++)
+        {
+            Button btn = (Button)ll.getChildAt(i);
+            if(User.currentUser.getSportsInterests().contains(btn.getText().toString()))
+            {
+                btn.setTag("1");
+                btn.setBackgroundResource(R.drawable.my_chip_selected);
+            }
+
+        }
+
+        ll = root.findViewById(R.id.GridLayout2);
+        for (int i = 0; i < ll.getChildCount(); i++)
+        {
+            Button btn = (Button)ll.getChildAt(i);
+            if(User.currentUser.getMoviesInterests().contains(btn.getText().toString()))
+            {
+                btn.setTag("1");
+                btn.setBackgroundResource(R.drawable.my_chip_selected);
+            }
+        }
         return root;
+    }
+
+    private void onSave(View view)
+    {
+        // todo: do this in a separated thread
+        // todo: move the functionality of save to User class only, It will have to be called from many places in future
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("users");
+
+        ArrayList<String> movies = new ArrayList<>();
+        ArrayList<String> sports = new ArrayList<>();
+
+        GridLayout ll = view.findViewById(R.id.GridLayout1);
+        for (int i = 0; i < ll.getChildCount(); i++)
+        {
+            Button btn = (Button)ll.getChildAt(i);
+            if(btn.getTag().equals("1"))
+                sports.add(btn.getText().toString());
+        }
+
+        ll = view.findViewById(R.id.GridLayout2);
+        for (int i = 0; i < ll.getChildCount(); i++)
+        {
+            Button btn = (Button)ll.getChildAt(i);
+            if(btn.getTag().equals("1"))
+                movies.add(btn.getText().toString());
+        }
+
+        User.currentUser.setSportsInterests(sports);
+        User.currentUser.setMoviesInterests(movies);
+        myRef.child(User.currentUser.getUID()).setValue(User.currentUser);
+        Toast.makeText(getContext(), "Saved",Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -9,13 +9,10 @@ public class User {
 
     private String username;
     private String email;
+    private String UID;
     private ArrayList<String> moviesInterests = new ArrayList<>();
     private ArrayList<String> sportsInterests = new ArrayList<>();
 
-    //interests -> movies
-    //                      -> Horror
-    //                      -> Fantasy
-    //          -> sports
 
     @Exclude
     public static User currentUser = null;
@@ -24,15 +21,23 @@ public class User {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String username, String email, ArrayList<String> _moviesInterests, ArrayList<String> _sportsInterests)
+    public User(String username, String email,String _UID, ArrayList<String> _moviesInterests, ArrayList<String> _sportsInterests)
     {
         this.username = username;
         this.email = email;
+        this.UID = _UID;
         moviesInterests = _moviesInterests;
         sportsInterests = _sportsInterests;
     }
 
 
+    public String getUID() {
+        return UID;
+    }
+
+    public void setUID(String UID) {
+        this.UID = UID;
+    }
 
     public String getUsername() {
         return username;

@@ -145,7 +145,8 @@ public class SignUpActivity extends AppCompatActivity {
                 movies.add(btn.getText().toString());
         }
 
-        User currentUser = new User(_user.getDisplayName(),_user.getEmail(),movies,sports);
+        User currentUser = new User(_user.getDisplayName(),_user.getEmail(),_user.getUid(),movies,sports);
+        User.currentUser = currentUser;
         myRef.child(_user.getUid()).setValue(currentUser);
 
         Intent i = new Intent(getBaseContext(), MainActivity.class);
