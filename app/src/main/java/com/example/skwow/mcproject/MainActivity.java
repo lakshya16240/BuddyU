@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "MainActivity";
     private BottomNavigationView navigation;
@@ -48,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
+        FirebaseMessaging.getInstance().subscribeToTopic("android");
 
     }
 
@@ -99,5 +104,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+
 
 }
