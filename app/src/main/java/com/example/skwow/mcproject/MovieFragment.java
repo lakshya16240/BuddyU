@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,8 @@ public class MovieFragment extends Fragment{
 
     RecyclerView recyclerView;
     MovieAdapter adapter;
-    List<Movie> movieList = new ArrayList<>();
+    List<Movie> movieList ;
+    private static RelativeLayout rl_eventFrom;
 
     @Nullable
     @Override
@@ -25,6 +27,9 @@ public class MovieFragment extends Fragment{
 
         View view = inflater.inflate(R.layout.movie_frament, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        rl_eventFrom = view.findViewById(R.id.rl_eventForm);
+
+        movieList = new ArrayList<>();
 
         movieList.add(
                 new Movie(1, "Iron Man", 4.4, "book", "Hindi", R.drawable.ironman)
@@ -53,5 +58,9 @@ public class MovieFragment extends Fragment{
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(layoutManager);
         return view;
+    }
+
+    public static void showEventForm(){
+        rl_eventFrom.setVisibility(View.VISIBLE);
     }
 }
