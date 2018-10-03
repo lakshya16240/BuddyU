@@ -110,6 +110,15 @@ public class MainFragment extends Fragment {
             }
         });
 
+        fabCreateEvent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MovieFragment.showEventForm();
+            }
+        });
+
+
+
         customPagerAdapter = new CustomPagerAdapter(getActivity().getSupportFragmentManager(), fragmentArrayList);
 
         viewPager.setAdapter(customPagerAdapter);
