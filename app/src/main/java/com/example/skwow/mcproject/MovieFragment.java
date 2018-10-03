@@ -17,12 +17,13 @@ public class MovieFragment extends Fragment{
 
     RecyclerView recyclerView;
     MovieAdapter adapter;
-    List<Movie> movieList = new ArrayList<>();
+    List<Movie> movieList;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        movieList = new ArrayList<>();
         View view = inflater.inflate(R.layout.movie_frament, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 

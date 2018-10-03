@@ -18,12 +18,12 @@ public class SportsFragment extends Fragment{
 
     RecyclerView recyclerView;
     SportsAdapter adapter;
-    List<Sports> sportslist = new ArrayList<>();
+    List<Sports> sportslist;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        sportslist = new ArrayList<>();
         View view = inflater.inflate(R.layout.movie_frament, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
 
