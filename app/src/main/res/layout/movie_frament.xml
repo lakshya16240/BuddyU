@@ -10,7 +10,7 @@
 
     <RelativeLayout
         android:id="@+id/rl_eventForm"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="8dp">
@@ -25,28 +25,40 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp" />
 
+        <EditText
+            android:id="@+id/createEventHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_gravity="center_vertical"
+            android:inputType="textPersonName"
+            android:hint="Title"
+            android:layout_below="@id/sp_eventType"/>
+
         <LinearLayout
             android:id="@+id/linearLayoutDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@id/sp_eventType">
+            android:layout_below="@id/createEventHeading">
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/createEventVenue"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
                 android:layout_gravity="center_vertical"
                 android:inputType="textPersonName"
                 android:hint="Venue"/>
 
             <EditText
                 android:layout_weight="1"
-                android:id="@+id/editText2"
+                android:id="@+id/createEventTime"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -67,12 +79,23 @@
             android:layout_below="@id/linearLayoutDetails"
             android:hint="Details (Optional)" />
 
-        <TextView
+        <!--TextView
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="wrap_content"
             android:background="@android:color/darker_gray"
             android:layout_below="@id/et_optionalDetails"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"/-->
+
+        <Button android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:textAlignment="center"
+            android:text="Create"
+            android:id="@+id/createEvent"
+            android:background="@color/colorAccent"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/et_optionalDetails">
+
+        </Button>
 
     </RelativeLayout>
 

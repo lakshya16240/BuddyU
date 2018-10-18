@@ -1167,6 +1167,10 @@ id container
 id content
 id contentPanel
 id coordinator
+id createEvent
+id createEventHeading
+id createEventTime
+id createEventVenue
 id custom
 id customPanel
 id dark
@@ -1181,8 +1185,6 @@ id dimensions
 id direct
 id disableHome
 id editProfile
-id editText
-id editText2
 id edit_query
 id email
 id email_login_form
