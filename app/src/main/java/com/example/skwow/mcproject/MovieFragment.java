@@ -42,6 +42,7 @@ public class MovieFragment extends Fragment{
                 // todo: validate the data
                 MyEvent event = new MyEvent(((Spinner)view.findViewById(R.id.sp_eventType)).getSelectedItem().toString(), ((EditText)view.findViewById(R.id.createEventVenue)).getText().toString(),((EditText)view.findViewById(R.id.createEventTime)).getText().toString(),0,((EditText)view.findViewById(R.id.createEventHeading)).getText().toString(),((EditText)view.findViewById(R.id.et_optionalDetails)).getText().toString(),User.currentUser.getUID());
                 event.pushToDatabase();
+                rl_eventFrom.setVisibility(View.GONE);
             }
         });
 
@@ -74,7 +75,10 @@ public class MovieFragment extends Fragment{
         return view;
     }
 
-    public static void showEventForm(){
-        rl_eventFrom.setVisibility(View.VISIBLE);
+    public static void toggleVisiblity(){
+        if(rl_eventFrom.getVisibility()== View.GONE)
+            rl_eventFrom.setVisibility(View.VISIBLE);
+        else if(rl_eventFrom.getVisibility()== View.VISIBLE)
+            rl_eventFrom.setVisibility(View.GONE);
     }
 }

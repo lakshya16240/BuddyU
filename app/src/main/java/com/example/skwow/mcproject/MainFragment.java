@@ -12,10 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 
 import java.util.ArrayList;
 
@@ -114,7 +111,7 @@ public class MainFragment extends Fragment {
         fabCreateEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MovieFragment.showEventForm();
+                MovieFragment.toggleVisiblity();
             }
         });
 
