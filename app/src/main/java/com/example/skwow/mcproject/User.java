@@ -10,6 +10,7 @@ public class User {
     private String username;
     private String email;
     private String UID;
+    private String notification;
     private ArrayList<String> moviesInterests = new ArrayList<>();
     private ArrayList<String> sportsInterests = new ArrayList<>();
 
@@ -26,6 +27,7 @@ public class User {
         this.username = username;
         this.email = email;
         this.UID = _UID;
+        this.notification = "default";
         moviesInterests = _moviesInterests;
         sportsInterests = _sportsInterests;
     }

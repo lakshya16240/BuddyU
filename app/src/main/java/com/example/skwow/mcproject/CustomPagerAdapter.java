@@ -10,7 +10,7 @@ public class CustomPagerAdapter extends FragmentStatePagerAdapter {
 
     private int PageCount;
     private ArrayList<Fragment> fragmentArrayList;
-    private String[] PageTitle = {"Movies", "Sports", "Entertainment", "Trips"};
+    private String[] PageTitle = {"Events"}; //, "Sports", "Entertainment", "Trips"};
 
     // add arraylist of fragments
 

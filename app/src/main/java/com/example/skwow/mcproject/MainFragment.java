@@ -1,7 +1,5 @@
 package com.example.skwow.mcproject;
 
-import android.content.Context;
-import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -47,9 +45,6 @@ public class MainFragment extends Fragment {
         // Required empty public constructor
     }
 
-//    MovieFragment movieFragment = new MovieFragment();
-
-
     public static MainFragment newInstance(int pageNumber) {
         MainFragment fragment = new MainFragment();
         Bundle bundle = new Bundle();
@@ -71,7 +66,7 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_main, container, false);
         tabLayout = (TabLayout) rootView.findViewById(R.id.tabs);
         viewPager = (ViewPager) rootView.findViewById(R.id.viewPager);
         fabPlus = (FloatingActionButton) rootView.findViewById(R.id.fab_plus);
@@ -83,10 +78,10 @@ public class MainFragment extends Fragment {
         FabRotationClockwise = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_clockwise);
         FabRotationAntiClockwise = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_anticlockwise);
 
-        fragmentArrayList.add(new MovieFragment());
-        fragmentArrayList.add(new SportsFragment());
-        fragmentArrayList.add(new EntertainmentFragment());
-        fragmentArrayList.add(new TripFragment());
+        fragmentArrayList.add(new EventFragment());
+//        fragmentArrayList.add(new SportsFragment());
+//        fragmentArrayList.add(new EntertainmentFragment());
+//        fragmentArrayList.add(new TripFragment());
 
         fabPlus.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,9 +108,12 @@ public class MainFragment extends Fragment {
         fabCreateEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MovieFragment.showEventForm();
+                EventFragment.toggleVisiblity();
             }
         });
+
+
+
 
 
 
@@ -129,20 +127,6 @@ public class MainFragment extends Fragment {
         return rootView;
     }
 
-//    public void FabAnimationControl(View v) {
-//        if ( Fab_isOpen ) {
-//            fabCreateEvent.startAnimation(FabClose);
-//            fabPlus.startAnimation(FabRotationAntiClockwise);
-//            fabCreateEvent.setClickable(false);
-//            Fab_isOpen = false;
-//        }
-//        else {
-//            fabCreateEvent.startAnimation(FabOpen);
-//            fabPlus.startAnimation(FabRotationClockwise);
-//            fabCreateEvent.setClickable(true);
-//            Fab_isOpen = true;
-//        }
-//    }
 
 
     /**
