@@ -82,9 +82,9 @@ public class MainFragment extends Fragment {
         FabRotationAntiClockwise = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_anticlockwise);
 
         fragmentArrayList.add(new MovieFragment());
-        fragmentArrayList.add(new SportsFragment());
-        fragmentArrayList.add(new EntertainmentFragment());
-        fragmentArrayList.add(new TripFragment());
+//        fragmentArrayList.add(new SportsFragment());
+//        fragmentArrayList.add(new EntertainmentFragment());
+//        fragmentArrayList.add(new TripFragment());
 
         fabPlus.setOnClickListener(new View.OnClickListener() {
             @Override
