@@ -25,7 +25,7 @@ public class SportsFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         sportslist = new ArrayList<>();
         View view = inflater.inflate(R.layout.movie_frament, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewEvent);
 
         sportslist.add(
                 new Sports(1, "Football", "Sports block", "book", R.drawable.football)

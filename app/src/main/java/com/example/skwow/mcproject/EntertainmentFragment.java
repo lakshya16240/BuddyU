@@ -23,7 +23,7 @@ public class EntertainmentFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         entertainmentlist = new ArrayList<>();
         View view = inflater.inflate(R.layout.movie_frament, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewEvent);
 
         entertainmentlist.add(
                 new Entertainment(1, "Paintball", "book", "A sport in which players eliminate opponents by firing colours.", R.drawable.paintball)

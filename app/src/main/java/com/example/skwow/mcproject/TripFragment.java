@@ -24,7 +24,7 @@ public class TripFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         tripList = new ArrayList<>();
         View view = inflater.inflate(R.layout.movie_frament, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewEvent);
 
         tripList.add(
                 new Trip(1, "Manali", "book", 4.5, R.drawable.manali)
