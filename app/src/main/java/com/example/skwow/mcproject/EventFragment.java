@@ -20,14 +20,9 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class MovieFragment extends Fragment{
+public class EventFragment extends Fragment{
 
     RecyclerView recyclerView;
-    //MovieAdapter adapter;
-    //List<Movie> movieList ;
     private DatabaseReference mDatabase;
     private Button createEventBtn;
 
@@ -37,7 +32,6 @@ public class MovieFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        //movieList = new ArrayList<>();
         final View view = inflater.inflate(R.layout.movie_frament, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewEvent);
         recyclerView.setHasFixedSize(true);
@@ -56,45 +50,20 @@ public class MovieFragment extends Fragment{
             }
         });
 
-//        movieList.add(
-//                new Movie(1, "Iron Man", 4.4, "book", "Hindi", R.drawable.ironman)
-//        );
-//        movieList.add(
-//                new Movie(2, "Hunger Games", 4.4, "book", "English", R.drawable.hungergames)
-//        );
-//
-//        movieList.add(
-//                new Movie(3, "Raazi", 4.4, "book", "English", R.drawable.raazi)
-//        );
-//        movieList.add(
-//                new Movie(1, "Iron Man", 4.4, "book", "Hindi", R.drawable.ironman)
-//        );
-//        movieList.add(
-//                new Movie(2, "Hunger Games", 4.4, "book", "English", R.drawable.hungergames)
-//        );
-//
-//        movieList.add(
-//                new Movie(3, "Raazi", 4.4, "book", "English", R.drawable.raazi)
-//        );
-//
-//        adapter = new MovieAdapter(getActivity(), movieList);
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Events");
         FirebaseRecyclerAdapter<MyEvent,movieViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<MyEvent, movieViewHolder>
                 (
-                        MyEvent.class,R.layout.list_layout_movie,movieViewHolder.class,mDatabase
+                        MyEvent.class,R.layout.list_layout_event,movieViewHolder.class,mDatabase
                 )
         {
             @Override
             protected void populateViewHolder(movieViewHolder viewHolder, MyEvent model, int position) {
                 viewHolder.textViewTitle.setText(model.getHeading());
-
+                viewHolder.textViewVenue.setText(model.getVenue()+" "+ model.getTime());
             }
-
         };
 
         recyclerView.setAdapter(firebaseRecyclerAdapter);
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-//        recyclerView.setLayoutManager(layoutManager);
         return view;
     }
 
@@ -102,7 +71,7 @@ public class MovieFragment extends Fragment{
 
         View mView;
         ImageView imageView;
-        TextView textViewTitle, textViewLanguage;
+        TextView textViewTitle, textViewVenue;
         Button book;
 
         public movieViewHolder(@NonNull View itemView) {
@@ -110,7 +79,7 @@ public class MovieFragment extends Fragment{
             mView = itemView;
             imageView = itemView.findViewById(R.id.imageView);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
-            textViewLanguage = itemView.findViewById(R.id.textViewLanguage);
+            textViewVenue = itemView.findViewById(R.id.eventVenue);
             book = itemView.findViewById(R.id.book);
         }
 

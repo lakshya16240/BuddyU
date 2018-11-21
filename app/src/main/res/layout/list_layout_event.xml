@@ -38,12 +38,11 @@
             android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/textViewLanguage"
+            android:id="@+id/eventVenue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/textViewTitle"
             android:layout_centerVertical="true"
-            android:text="Hindi"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Small"
             android:layout_alignLeft="@+id/textViewTitle" />
 

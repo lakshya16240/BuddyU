@@ -45,7 +45,7 @@ public class MainFragment extends Fragment {
         // Required empty public constructor
     }
 
-//    MovieFragment movieFragment = new MovieFragment();
+//    EventFragment movieFragment = new EventFragment();
 
 
     public static MainFragment newInstance(int pageNumber) {
@@ -81,7 +81,7 @@ public class MainFragment extends Fragment {
         FabRotationClockwise = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_clockwise);
         FabRotationAntiClockwise = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_anticlockwise);
 
-        fragmentArrayList.add(new MovieFragment());
+        fragmentArrayList.add(new EventFragment());
 //        fragmentArrayList.add(new SportsFragment());
 //        fragmentArrayList.add(new EntertainmentFragment());
 //        fragmentArrayList.add(new TripFragment());
@@ -111,7 +111,7 @@ public class MainFragment extends Fragment {
         fabCreateEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MovieFragment.toggleVisiblity();
+                EventFragment.toggleVisiblity();
             }
         });
 
