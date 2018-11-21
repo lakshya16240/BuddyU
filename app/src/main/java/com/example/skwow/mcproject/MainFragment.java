@@ -45,9 +45,6 @@ public class MainFragment extends Fragment {
         // Required empty public constructor
     }
 
-//    EventFragment movieFragment = new EventFragment();
-
-
     public static MainFragment newInstance(int pageNumber) {
         MainFragment fragment = new MainFragment();
         Bundle bundle = new Bundle();
@@ -130,20 +127,6 @@ public class MainFragment extends Fragment {
         return rootView;
     }
 
-//    public void FabAnimationControl(View v) {
-//        if ( Fab_isOpen ) {
-//            fabCreateEvent.startAnimation(FabClose);
-//            fabPlus.startAnimation(FabRotationAntiClockwise);
-//            fabCreateEvent.setClickable(false);
-//            Fab_isOpen = false;
-//        }
-//        else {
-//            fabCreateEvent.startAnimation(FabOpen);
-//            fabPlus.startAnimation(FabRotationClockwise);
-//            fabCreateEvent.setClickable(true);
-//            Fab_isOpen = true;
-//        }
-//    }
 
 
     /**

@@ -19,6 +19,7 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 public class EventFragment extends Fragment{
 
@@ -32,7 +33,7 @@ public class EventFragment extends Fragment{
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        final View view = inflater.inflate(R.layout.movie_frament, container, false);
+        final View view = inflater.inflate(R.layout.event_frament, container, false);
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewEvent);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -44,7 +45,7 @@ public class EventFragment extends Fragment{
             @Override
             public void onClick(View root) {
                 // todo: validate the data
-                MyEvent event = new MyEvent(((Spinner)view.findViewById(R.id.sp_eventType)).getSelectedItem().toString(), ((EditText)view.findViewById(R.id.createEventVenue)).getText().toString(),((EditText)view.findViewById(R.id.createEventTime)).getText().toString(),0,((EditText)view.findViewById(R.id.createEventHeading)).getText().toString(),((EditText)view.findViewById(R.id.et_optionalDetails)).getText().toString(),User.currentUser.getUID());
+                MyEvent event = new MyEvent(((Spinner)view.findViewById(R.id.sp_eventType)).getSelectedItem().toString(), ((EditText)view.findViewById(R.id.createEventVenue)).getText().toString(),((EditText)view.findViewById(R.id.createEventTime)).getText().toString(),0,((EditText)view.findViewById(R.id.createEventHeading)).getText().toString(),((EditText)view.findViewById(R.id.et_optionalDetails)).getText().toString(),User.currentUser.getUID(),((EditText)view.findViewById(R.id.eventImageLink)).getText().toString());
                 event.pushToDatabase();
                 rl_eventFrom.setVisibility(View.GONE);
             }
@@ -60,6 +61,7 @@ public class EventFragment extends Fragment{
             protected void populateViewHolder(movieViewHolder viewHolder, MyEvent model, int position) {
                 viewHolder.textViewTitle.setText(model.getHeading());
                 viewHolder.textViewVenue.setText(model.getVenue()+" "+ model.getTime());
+                Picasso.with(getContext()).load(model.getImageLink()).into(viewHolder.imageView);
             }
         };
 

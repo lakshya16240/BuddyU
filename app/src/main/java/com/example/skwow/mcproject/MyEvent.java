@@ -14,6 +14,16 @@ public class MyEvent
     private float cost;
     private String heading;
     private String description;
+    private String imageLink;
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
+
 
     public String getCreatedBy() {
         return createdBy;
@@ -27,7 +37,7 @@ public class MyEvent
 
     public MyEvent() {}
 
-    public MyEvent(String type, String venue, String time, float cost, String heading, String description, String createdBy) {
+    public MyEvent(String type, String venue, String time, float cost, String heading, String description, String createdBy, String imgLink) {
         this.type = type;
         Venue = venue;
         Time = time;
@@ -35,6 +45,7 @@ public class MyEvent
         this.heading = heading;
         this.description = description;
         this.createdBy = createdBy;
+        imageLink = imgLink;
     }
 
     public String getType() {

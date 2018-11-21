@@ -10,7 +10,7 @@
 
     <RelativeLayout
         android:id="@+id/rl_eventForm"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="8dp">
@@ -79,12 +79,15 @@
             android:layout_below="@id/linearLayoutDetails"
             android:hint="Details (Optional)" />
 
-        <!--TextView
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/eventImageLink"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/darker_gray"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:inputType="textPersonName"
             android:layout_below="@id/et_optionalDetails"
-            android:layout_marginTop="8dp"/-->
+            android:hint="ImageLink (Optional)" />
 
         <Button android:layout_height="40dp"
             android:layout_width="wrap_content"
@@ -93,7 +96,7 @@
             android:id="@+id/createEvent"
             android:background="@color/colorAccent"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/et_optionalDetails">
+            android:layout_below="@id/eventImageLink">
 
         </Button>
 
