@@ -27,7 +27,6 @@ import java.util.ArrayList;
  */
 public class MainFragment extends Fragment {
 
-    private OnFragmentInteractionListener mListener;
     private static final String ARG_PAGE = "arg_page";
     public static final String TAG = "MainFragment";
 
@@ -58,8 +57,6 @@ public class MainFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Fab_isOpen = false;
         Log.d(TAG, "Main Fragment called from ft.replace()");
-
-
 
     }
 
@@ -108,14 +105,15 @@ public class MainFragment extends Fragment {
         fabCreateEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                fab2_box.startAnimation(FabClose);
+                fabCreateEvent.startAnimation(FabClose);
+                fabPlus.startAnimation(FabRotationAntiClockwise);
+                fab2_box.setVisibility(View.INVISIBLE);
+                fabCreateEvent.setClickable(false);
+                Fab_isOpen = false;
                 EventFragment.toggleVisiblity();
             }
         });
-
-
-
-
-
 
         customPagerAdapter = new CustomPagerAdapter(getActivity().getSupportFragmentManager(), fragmentArrayList);
 
@@ -125,22 +123,5 @@ public class MainFragment extends Fragment {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
         return rootView;
-    }
-
-
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
     }
 }

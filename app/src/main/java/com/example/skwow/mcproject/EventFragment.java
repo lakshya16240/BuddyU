@@ -21,11 +21,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 public class EventFragment extends Fragment{
 
     RecyclerView recyclerView;
     private DatabaseReference mDatabase;
     private Button createEventBtn;
+
+    static ArrayList<Group> groups = new ArrayList<>();
 
     private static RelativeLayout rl_eventFrom;  // todo: bad design
 
@@ -52,16 +56,21 @@ public class EventFragment extends Fragment{
         });
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Events");
-        FirebaseRecyclerAdapter<MyEvent,movieViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<MyEvent, movieViewHolder>
-                (
-                        MyEvent.class,R.layout.list_layout_event,movieViewHolder.class,mDatabase
-                )
+        FirebaseRecyclerAdapter<MyEvent,movieViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<MyEvent, movieViewHolder>(MyEvent.class,R.layout.list_layout_event,movieViewHolder.class,mDatabase)
         {
             @Override
             protected void populateViewHolder(movieViewHolder viewHolder, MyEvent model, int position) {
                 viewHolder.textViewTitle.setText(model.getHeading());
                 viewHolder.textViewVenue.setText(model.getVenue()+" "+ model.getTime());
-                Picasso.with(getContext()).load(model.getImageLink()).into(viewHolder.imageView);
+                if(model.getImageLink().length()!=0)
+                    Picasso.with(getContext()).load(model.getImageLink()).into(viewHolder.imageView);
+
+                viewHolder.book.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        groups.add(new Group(model.getHeading(),model.getVenue(),model.getTime()));
+                    }
+                });
             }
         };
 

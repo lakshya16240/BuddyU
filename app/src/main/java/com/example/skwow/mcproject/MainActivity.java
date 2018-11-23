@@ -6,6 +6,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -73,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
             ft.replace(R.id.fragment_container, notificationFragment);
         }
         else if ( viewId == 2 ) {
-            GroupFragment groupFragment = new GroupFragment();
+            Log.d(TAG, "changeMainLayout: " + EventFragment.groups.size());
+            GroupFragment groupFragment = GroupFragment.newInstance(EventFragment.groups);
             ft.replace(R.id.fragment_container, groupFragment);
         }
         else if ( viewId == 3 ) {
