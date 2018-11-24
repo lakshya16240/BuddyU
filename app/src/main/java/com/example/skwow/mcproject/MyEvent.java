@@ -3,6 +3,7 @@ package com.example.skwow.mcproject;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class MyEvent
@@ -15,27 +16,10 @@ public class MyEvent
     private String heading;
     private String description;
     private String imageLink;
-
-    public String getImageLink() {
-        return imageLink;
-    }
-
-    public void setImageLink(String imageLink) {
-        this.imageLink = imageLink;
-    }
-
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
     private String createdBy;
-
-    public MyEvent() {}
+    private String salt;
+    private ArrayList<User> users = new ArrayList<>();
+    private ArrayList<Message> messages = new ArrayList<>();
 
     public MyEvent(String type, String venue, String time, float cost, String heading, String description, String createdBy, String imgLink) {
         this.type = type;
@@ -46,7 +30,38 @@ public class MyEvent
         this.description = description;
         this.createdBy = createdBy;
         imageLink = imgLink;
+        users.add(User.currentUser);
+
     }
+    public String getSalt(){
+        return salt;
+    }
+
+    public void addUser(User user){
+        users.add(user);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference groupDatabaseReference = database.getReference("Groups");
+        groupDatabaseReference.child(salt).child("Users").setValue(users);
+
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public MyEvent() {}
 
     public String getType() {
         return type;
@@ -104,7 +119,8 @@ public class MyEvent
             int index = (int) (rnd.nextFloat() * SALTCHARS.length());
             salt.append(SALTCHARS.charAt(index));
         }
-        return salt.toString();
+        this.salt = salt.toString();
+        return this.salt;
     }
 
     public void pushToDatabase()
@@ -112,6 +128,11 @@ public class MyEvent
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("Events");
         myRef.child(getSaltString(15)).setValue(this);
+        myRef.child(salt).child("EventId").setValue(salt);
+
+        DatabaseReference groupDatabaseReference = database.getReference("Groups");
+        groupDatabaseReference.child(salt).child("users").setValue(users);
+
     }
 
 }

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,10 +27,12 @@ import java.util.ArrayList;
 public class EventFragment extends Fragment{
 
     RecyclerView recyclerView;
+    public static final String TAG = "EventFragment";
     private DatabaseReference mDatabase;
+    private DatabaseReference groupDatabaseReference;
     private Button createEventBtn;
 
-    static ArrayList<Group> groups = new ArrayList<>();
+    static ArrayList<MyEvent> groups = new ArrayList<>();
 
     private static RelativeLayout rl_eventFrom;  // todo: bad design
 
@@ -38,7 +41,7 @@ public class EventFragment extends Fragment{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.event_frament, container, false);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerViewEvent);
+        recyclerView = view.findViewById(R.id.recyclerViewEvent);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -49,9 +52,16 @@ public class EventFragment extends Fragment{
             @Override
             public void onClick(View root) {
                 // todo: validate the data
-                MyEvent event = new MyEvent(((Spinner)view.findViewById(R.id.sp_eventType)).getSelectedItem().toString(), ((EditText)view.findViewById(R.id.createEventVenue)).getText().toString(),((EditText)view.findViewById(R.id.createEventTime)).getText().toString(),0,((EditText)view.findViewById(R.id.createEventHeading)).getText().toString(),((EditText)view.findViewById(R.id.et_optionalDetails)).getText().toString(),User.currentUser.getUID(),((EditText)view.findViewById(R.id.eventImageLink)).getText().toString());
+                MyEvent event = new MyEvent(((Spinner)view.findViewById(R.id.sp_eventType)).getSelectedItem().toString(),
+                                            ((EditText)view.findViewById(R.id.createEventVenue)).getText().toString(),
+                                            ((EditText)view.findViewById(R.id.createEventTime)).getText().toString(),
+                                            0,((EditText)view.findViewById(R.id.createEventHeading)).getText().toString(),
+                                            ((EditText)view.findViewById(R.id.et_optionalDetails)).getText().toString(),
+                                            User.currentUser.getUID(),
+                                            ((EditText)view.findViewById(R.id.eventImageLink)).getText().toString());
                 event.pushToDatabase();
                 rl_eventFrom.setVisibility(View.GONE);
+                User.currentUser.addEvent(event);
             }
         });
 
@@ -65,10 +75,25 @@ public class EventFragment extends Fragment{
                 if(model.getImageLink().length()!=0)
                     Picasso.with(getContext()).load(model.getImageLink()).into(viewHolder.imageView);
 
+                Log.d(TAG, "populateViewHolder: " + User.currentUser.getUID());
+                if(model.getCreatedBy().equals(User.currentUser.getUID()))
+                    viewHolder.book.setVisibility(View.INVISIBLE);
+
                 viewHolder.book.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        groups.add(new Group(model.getHeading(),model.getVenue(),model.getTime()));
+                        int flag = 0;
+                        for(int i=0;i<User.currentUser.getEvents().size();i++){
+                            if(User.currentUser.getEvents().get(i).getSalt().equals(model.getSalt())){
+                                flag = 1;
+                            }
+                        }
+
+                        if(flag == 0) {
+                            User.currentUser.addEvent(model);
+                            model.addUser(User.currentUser);
+                        }
+                        groups.add(model);
                     }
                 });
             }

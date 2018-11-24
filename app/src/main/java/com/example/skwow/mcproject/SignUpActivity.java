@@ -128,6 +128,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         ArrayList<String> movies = new ArrayList<>();
         ArrayList<String> sports = new ArrayList<>();
+        ArrayList<MyEvent> events = new ArrayList<>();
 
         GridLayout ll = findViewById(R.id.GridLayout1);
         for (int i = 0; i < ll.getChildCount(); i++)
@@ -145,7 +146,7 @@ public class SignUpActivity extends AppCompatActivity {
                 movies.add(btn.getText().toString());
         }
 
-        User currentUser = new User(_user.getDisplayName(),_user.getEmail(),_user.getUid(),movies,sports);
+        User currentUser = new User(_user.getDisplayName(),_user.getEmail(),_user.getUid(),movies,sports,events);
         User.currentUser = currentUser;
         myRef.child(_user.getUid()).setValue(currentUser);
 

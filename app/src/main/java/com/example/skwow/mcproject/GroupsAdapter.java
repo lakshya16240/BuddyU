@@ -19,9 +19,9 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupViewH
 
     public static final String TAG = "GroupAdapter";
     private Context context;
-    private ArrayList<Group> groups;
+    private ArrayList<MyEvent> groups;
 
-    public GroupsAdapter(Context context, ArrayList<Group> groups) {
+    public GroupsAdapter(Context context, ArrayList<MyEvent> groups) {
         this.context = context;
         this.groups = groups;
     }
@@ -37,14 +37,15 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupViewH
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull GroupViewHolder groupViewHolder, int i) {
-        groupViewHolder.tv_eventTitle.setText(groups.get(i).getEventTitle());
-        groupViewHolder.tv_eventVenue.setText(groupViewHolder.tv_eventVenue.getText().toString() + groups.get(i).getEventVenue());
-        groupViewHolder.tv_eventTiming.setText(groupViewHolder.tv_eventTiming.getText().toString() + groups.get(i).getEventTimings());
+        groupViewHolder.tv_eventTitle.setText(groups.get(i).getHeading());
+        groupViewHolder.tv_eventVenue.setText(groupViewHolder.tv_eventVenue.getText().toString() + groups.get(i).getVenue());
+        groupViewHolder.tv_eventTiming.setText(groupViewHolder.tv_eventTiming.getText().toString() + groups.get(i).getTime());
 
         groupViewHolder.cv_group.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChatFragment chatFragment = ChatFragment.newInstance();
+                ChatFragment chatFragment = ChatFragment.newInstance(groups.get(i).getSalt());
+                Log.d(TAG, "onClick: " + groups.get(i).getSalt());
                 MainActivity mainActivity = (MainActivity)context;
                 FragmentManager fm = mainActivity.getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();

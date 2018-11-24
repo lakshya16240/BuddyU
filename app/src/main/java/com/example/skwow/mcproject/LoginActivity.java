@@ -67,19 +67,23 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+
         emailEditText = (EditText)findViewById(R.id.email);
         passwordEditText = (EditText)findViewById(R.id.password);
         signInButton = (Button) findViewById(R.id.email_sign_in_button);
         feedback = (TextView) findViewById(R.id.feedback);
         progressBar = (ProgressBar) findViewById(R.id.login_progress);
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void onStart() {
+
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser!=null) {
             Toast.makeText(LoginActivity.this, "Already logged in", Toast.LENGTH_SHORT).show();
+            progressBar.setVisibility(View.GONE);
             onSuccessfulLogin(currentUser);
         }
 
@@ -127,6 +131,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onSuccessfulLogin(FirebaseUser user) {
 
         // todo : do this in a separated thread
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("users").child(user.getUid());
 
@@ -134,8 +139,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User u = dataSnapshot.getValue(User.class);
+                Log.d(TAG, "onDataChange: " + u.getUID() + " " + u.getEvents().size() + " " + u.getSportsInterests().size() + " " + u.getEvents().get(0).getSalt());
+
                 u.setUID(user.getUid());
                 User.currentUser = u;
+                Intent i = new Intent(getBaseContext(), MainActivity.class);
+                //i.putExtra("PersonID", mAuth.getCurrentUser().getDisplayName());
+                startActivity(i);
+                finish();
             }
 
             @Override
@@ -144,11 +155,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-
-        Intent i = new Intent(getBaseContext(), MainActivity.class);
-        //i.putExtra("PersonID", mAuth.getCurrentUser().getDisplayName());
-        startActivity(i);
-        finish();
     }
 
     public void onSignIn(View view) {

@@ -1,38 +1,34 @@
 package com.example.skwow.mcproject;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Group implements Serializable {
 
-    private String eventTitle, eventVenue, eventTimings;
+    private ArrayList<User> users = new ArrayList<>();
+    private ArrayList<Message> messages = new ArrayList<>();
 
-    public Group(String eventTitle, String eventVenue, String eventTimings) {
-        this.eventTitle = eventTitle;
-        this.eventVenue = eventVenue;
-        this.eventTimings = eventTimings;
+    public Group() {
     }
 
-    public String getEventTitle() {
-        return eventTitle;
+    public Group(ArrayList<User> users, ArrayList<Message> messages) {
+        this.users = users;
+        this.messages = messages;
     }
 
-    public void setEventTitle(String eventTitle) {
-        this.eventTitle = eventTitle;
+    public ArrayList<User> getUsers() {
+        return users;
     }
 
-    public String getEventVenue() {
-        return eventVenue;
+    public void setUsers(ArrayList<User> users) {
+        this.users = users;
     }
 
-    public void setEventVenue(String eventVenue) {
-        this.eventVenue = eventVenue;
+    public ArrayList<Message> getMessages() {
+        return messages;
     }
 
-    public String getEventTimings() {
-        return eventTimings;
-    }
-
-    public void setEventTimings(String eventTimings) {
-        this.eventTimings = eventTimings;
+    public void setMessages(ArrayList<Message> messages) {
+        this.messages = messages;
     }
 }
