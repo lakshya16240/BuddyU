@@ -169,6 +169,7 @@ public class LoginActivity extends AppCompatActivity {
                         Log.d(TAG, "signInWithEmail:success");
                         Toast.makeText(getApplicationContext(), "Authentication successful.", Toast.LENGTH_SHORT).show();
                         FirebaseUser user = mAuth.getCurrentUser();
+                        Log.d(TAG, "onComplete: " + user);
                         onSuccessfulLogin(user);
                     }
                     else {
