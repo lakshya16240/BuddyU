@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter{
@@ -16,14 +17,13 @@ public class ChatAdapter extends RecyclerView.Adapter{
     private static final int VIEW_TYPE_MESSAGE_RECEIVED = 2;
 
     private Context mContext;
-    private List<GroupMessage> messagesList;
+    private List<Message> messagesList = new ArrayList<>();
 
-    public ChatAdapter(Context context, List<GroupMessage> messageList) {
+    public ChatAdapter(Context context) {
         mContext = context;
-        messagesList = messageList;
     }
 
-    public void setMessages(List<GroupMessage> messages) {
+    public void setMessages(List<Message> messages) {
         this.messagesList = messages;
     }
 
@@ -36,9 +36,9 @@ public class ChatAdapter extends RecyclerView.Adapter{
     @Override
     public int getItemViewType(int position) {
 
-        GroupMessage message = messagesList.get(position);
+        Message message = messagesList.get(position);
 
-        if (message.isSelfMessage()) {
+        if (message.getUserId().equals(User.currentUser.getUID())) {
             // If the current user is the sender of the message
             Log.d("Checking", "getItemViewType: " + "selfMessage");
             return VIEW_TYPE_MESSAGE_SENT;
@@ -72,7 +72,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
     // Passes the message object to a ViewHolder so that the contents can be bound to UI.
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        GroupMessage message = messagesList.get(position);
+        Message message = messagesList.get(position);
         Log.d("checking", "onBindViewHolder: " + "entered");
         switch (holder.getItemViewType()) {
             case VIEW_TYPE_MESSAGE_SENT:
@@ -96,7 +96,7 @@ public class ChatAdapter extends RecyclerView.Adapter{
             messageText = itemView.findViewById(R.id.tv_message_body_sent);
         }
 
-        void bind(GroupMessage message) {
+        void bind(Message message) {
             Log.d("Checking", "bindSent: ");
             messageText.setText(message.getMessage());
         }
@@ -114,11 +114,11 @@ public class ChatAdapter extends RecyclerView.Adapter{
             nameText = itemView.findViewById(R.id.tv_message_name);
         }
 
-        void bind(GroupMessage message) {
+        void bind(Message message) {
             Log.d("Checking", "bindReceive: ");
             messageText.setText(message.getMessage());
 
-            nameText.setText(message.getUser().getEmail());
+            nameText.setText(message.getUserName());
         }
     }
 }

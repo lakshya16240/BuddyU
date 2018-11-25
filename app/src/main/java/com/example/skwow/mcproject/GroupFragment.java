@@ -18,7 +18,7 @@ public class GroupFragment extends Fragment {
 
     public static final String TAG = "GroupFragment";
     private RecyclerView rv_groups;
-    private ArrayList<Group> groups;
+    private ArrayList<MyEvent> groups;
     static GroupsAdapter groupsAdapter;
     private static GroupFragment fragment;
 
@@ -26,7 +26,7 @@ public class GroupFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static GroupFragment newInstance(ArrayList<Group> groupsArrayList) {
+    public static GroupFragment newInstance(ArrayList<MyEvent> groupsArrayList) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("Groups",groupsArrayList);
         if(fragment == null)
@@ -47,12 +47,11 @@ public class GroupFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_group, container, false);
 
         rv_groups = view.findViewById(R.id.rv_groups);
-        groups = (ArrayList<Group>) getArguments().getSerializable("Groups");
+//        groups = (ArrayList<MyEvent>) getArguments().getSerializable("Groups");
         rv_groups.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        groupsAdapter = new GroupsAdapter(getActivity(),groups);
+        groupsAdapter = new GroupsAdapter(getActivity(),User.currentUser.getEvents());
 
-        Log.d(TAG, "onCreateView: " + groups.size());
 
         rv_groups.setAdapter(groupsAdapter);
 
