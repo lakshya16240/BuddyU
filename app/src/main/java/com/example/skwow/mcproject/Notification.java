@@ -12,6 +12,9 @@ public class Notification
         this.msg = msg;
     }
 
+    public Notification(){}
+
+
     public String getSentBy() {
         return sentBy;
     }

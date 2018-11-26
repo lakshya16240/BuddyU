@@ -17,7 +17,7 @@ exports.newMessage = functions.database.ref('Notification')
 			data: {
 				title: msg["topic"],
                 body: msg["msg"],
-                sender: msg["name"]
+                sender: msg["sentBy"]
 			},
 			topic : "android" 
         }

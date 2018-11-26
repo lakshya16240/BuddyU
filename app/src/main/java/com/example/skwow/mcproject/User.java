@@ -12,12 +12,26 @@ public class User {
     private String username;
     private String email;
     private String UID;
-    private String notification;
     private ArrayList<String> moviesInterests = new ArrayList<>();
     private ArrayList<String> sportsInterests = new ArrayList<>();
     private ArrayList<MyEvent> events = new ArrayList<>();
+
+    public void setNotifications(ArrayList<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
     private ArrayList<Notification> notifications = new ArrayList<>();
 
+    public ArrayList<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void addNotification(Notification noti) {
+        this.notifications.add(noti);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userDatabaseReference = database.getReference("users");
+        userDatabaseReference.child(UID).child("notifications").setValue(notifications);
+    }
 
     @Exclude
     public static User currentUser = null;
@@ -31,7 +45,6 @@ public class User {
         this.username = username;
         this.email = email;
         this.UID = _UID;
-        this.notification = "default";
         moviesInterests = _moviesInterests;
         sportsInterests = _sportsInterests;
         events = _events;
@@ -84,6 +97,15 @@ public class User {
 
     public void setSportsInterests(ArrayList<String> sportsInterests) {
         this.sportsInterests = sportsInterests;
+    }
+
+    public boolean interestedIn(String s)
+    {
+        if(moviesInterests.contains(s))
+            return true;
+        if(sportsInterests.contains(s))
+            return true;
+        return false;
     }
 
     @Override

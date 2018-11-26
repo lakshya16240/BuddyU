@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +30,6 @@ public class EventFragment extends Fragment{
     RecyclerView recyclerView;
     public static final String TAG = "EventFragment";
     private DatabaseReference mDatabase;
-    private DatabaseReference groupDatabaseReference;
     private Button createEventBtn;
 
     static ArrayList<MyEvent> groups = new ArrayList<>();
@@ -52,6 +52,10 @@ public class EventFragment extends Fragment{
             @Override
             public void onClick(View root) {
                 // todo: validate the data
+
+                // todo: this needs to be subtypes
+                String eventType = "default";
+
                 MyEvent event = new MyEvent(((Spinner)view.findViewById(R.id.sp_eventType)).getSelectedItem().toString(),
                                             ((EditText)view.findViewById(R.id.createEventVenue)).getText().toString(),
                                             ((EditText)view.findViewById(R.id.createEventTime)).getText().toString(),
@@ -62,6 +66,11 @@ public class EventFragment extends Fragment{
                 event.pushToDatabase();
                 rl_eventFrom.setVisibility(View.GONE);
                 User.currentUser.addEvent(event);
+
+                Notification newNotification = new Notification(User.currentUser.getEmail() /*todo: change this to username after setting username*/,eventType,"created a new Event. Interested?");
+                DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Notification");
+                myRef.setValue(newNotification);
+
             }
         });
 

@@ -3,10 +3,23 @@ package com.example.skwow.mcproject;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 
 /**
@@ -20,7 +33,8 @@ import android.view.ViewGroup;
 public class NotificationFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
-
+    private RecyclerView recyclerView;
+    private DatabaseReference mDatabase;
     public NotificationFragment() {
         // Required empty public constructor
     }
@@ -35,12 +49,41 @@ public class NotificationFragment extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notification, container, false);
+        final View view = inflater.inflate(R.layout.fragment_notification, container, false);
+        recyclerView = view.findViewById(R.id.recyclerViewNotification);
+        //recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("users").child(User.currentUser.getUID()).child("notifications");
+        FirebaseRecyclerAdapter<Notification,NotificationFragment.notificationViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Notification, notificationViewHolder>(Notification.class,R.layout.list_layout_notification,notificationViewHolder.class,mDatabase) {
+            @Override
+            protected void populateViewHolder(notificationViewHolder viewHolder, Notification model, int position) {
+                viewHolder.sender.setText(model.getSentBy());
+                viewHolder.eType.setText(model.getTopic());
+                viewHolder.msg.setText(model.getMsg());
+            }
+        };
+//
+        recyclerView.setAdapter(firebaseRecyclerAdapter);
+        return view;
     }
 
+    public static class notificationViewHolder extends RecyclerView.ViewHolder
+    {
+        TextView sender, msg, eType;
+        public notificationViewHolder(@NonNull View itemView) {
+            super(itemView);
+            sender = itemView.findViewById(R.id.notiSender);
+            eType = itemView.findViewById(R.id.notiType);
+            msg = itemView.findViewById(R.id.notiMsg);
+        }
+    }
 
     @Override
     public void onDetach() {
