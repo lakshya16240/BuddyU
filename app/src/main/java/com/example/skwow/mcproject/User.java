@@ -16,6 +16,7 @@ public class User {
     private ArrayList<String> moviesInterests = new ArrayList<>();
     private ArrayList<String> sportsInterests = new ArrayList<>();
     private ArrayList<MyEvent> events = new ArrayList<>();
+    private ArrayList<Notification> notifications = new ArrayList<>();
 
 
     @Exclude
@@ -79,6 +80,7 @@ public class User {
         DatabaseReference userDatabaseReference = database.getReference("users");
         userDatabaseReference.child(UID).child("events").setValue(events);
     }
+
 
     public void setSportsInterests(ArrayList<String> sportsInterests) {
         this.sportsInterests = sportsInterests;

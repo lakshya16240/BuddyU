@@ -3,20 +3,21 @@ var admin = require('firebase-admin');
 
 admin.initializeApp(functions.config().firebase)
 
-exports.newMessage = functions.database.ref('users/{userID}/Notification')
+exports.newMessage = functions.database.ref('Notification')
 	.onUpdate(event => {
+        console.log(event.after._data)
         sendNotification(event.after._data)
         return true;
 	})
 
 
 	function sendNotification(msg) {
-		let subtitle = msg
 
 		let message = {
 			data: {
-				title: "BuddyU",
-				body: subtitle
+				title: msg["topic"],
+                body: msg["msg"],
+                sender: msg["name"]
 			},
 			topic : "android" 
         }
