@@ -10,32 +10,46 @@
 
     <RelativeLayout
         android:id="@+id/rl_eventForm"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="8dp">
 
 
-        <Spinner
-            android:id="@+id/sp_eventType"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/events_array"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp" />
+            android:id="@+id/llofspinners"
+            android:orientation="horizontal">
+            <Spinner
+                android:id="@+id/sp_eventType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/events_array"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp" />
+
+            <Spinner
+                android:id="@+id/sp_eventsubType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:entries="@array/events_array"
+                android:layout_marginTop="20dp" />
+        </LinearLayout>
+
 
         <EditText
             android:id="@+id/createEventHeading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:layout_marginTop="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
             android:layout_gravity="center_vertical"
             android:inputType="textPersonName"
             android:hint="Title"
-            android:layout_below="@id/sp_eventType"/>
+            android:layout_below="@id/llofspinners"/>
 
         <LinearLayout
             android:id="@+id/linearLayoutDetails"

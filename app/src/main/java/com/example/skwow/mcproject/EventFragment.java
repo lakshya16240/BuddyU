@@ -10,6 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -44,34 +47,61 @@ public class EventFragment extends Fragment{
         recyclerView = view.findViewById(R.id.recyclerViewEvent);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        Spinner categorySpinner =   view.findViewById(R.id.sp_eventType);
+        Spinner typeSpinner =   view.findViewById(R.id.sp_eventsubType);
 
         rl_eventFrom = view.findViewById(R.id.rl_eventForm);
         createEventBtn = view.findViewById(R.id.createEvent);
+        ArrayAdapter<String> movieAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.movies_events_array));
+        ArrayAdapter<String> sportsAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.sports_events_array));
 
-        createEventBtn.setOnClickListener(new View.OnClickListener() {
+        categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View root) {
-                // todo: validate the data
-
-                // todo: this needs to be subtypes
-                String eventType = "default";
-
-                MyEvent event = new MyEvent(((Spinner)view.findViewById(R.id.sp_eventType)).getSelectedItem().toString(),
-                                            ((EditText)view.findViewById(R.id.createEventVenue)).getText().toString(),
-                                            ((EditText)view.findViewById(R.id.createEventTime)).getText().toString(),
-                                            0,((EditText)view.findViewById(R.id.createEventHeading)).getText().toString(),
-                                            ((EditText)view.findViewById(R.id.et_optionalDetails)).getText().toString(),
-                                            User.currentUser.getUID(),
-                                            ((EditText)view.findViewById(R.id.eventImageLink)).getText().toString());
-                event.pushToDatabase();
-                rl_eventFrom.setVisibility(View.GONE);
-                User.currentUser.addEvent(event);
-
-                Notification newNotification = new Notification(User.currentUser.getEmail() /*todo: change this to username after setting username*/,eventType,"created a new Event. Interested?");
-                DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Notification");
-                myRef.setValue(newNotification);
-
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if(categorySpinner.getSelectedItem().toString().equals("Movie"))
+                {
+                    typeSpinner.setVisibility(View.VISIBLE);
+                    typeSpinner.setAdapter(movieAdapter);
+                }
+                else if(categorySpinner.getSelectedItem().toString().equals("Sports"))
+                {
+                    typeSpinner.setVisibility(View.VISIBLE);
+                    typeSpinner.setAdapter(sportsAdapter);
+                }
+                else
+                {
+                    typeSpinner.setVisibility(View.GONE);
+                }
             }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                typeSpinner.setVisibility(View.GONE);
+            }
+        });
+
+        createEventBtn.setOnClickListener(root -> {
+            // todo: validate the data
+
+            // todo: this needs to be subtypes
+            String eventType = typeSpinner.getSelectedItemPosition() == 0 ?"default": typeSpinner.getSelectedItem().toString();
+
+
+            MyEvent event = new MyEvent(eventType,
+                                        ((EditText)view.findViewById(R.id.createEventVenue)).getText().toString(),
+                                        ((EditText)view.findViewById(R.id.createEventTime)).getText().toString(),
+                                        0,((EditText)view.findViewById(R.id.createEventHeading)).getText().toString(),
+                                        ((EditText)view.findViewById(R.id.et_optionalDetails)).getText().toString(),
+                                        User.currentUser.getUID(),
+                                        ((EditText)view.findViewById(R.id.eventImageLink)).getText().toString());
+            event.pushToDatabase();
+            rl_eventFrom.setVisibility(View.GONE);
+            User.currentUser.addEvent(event);
+
+            Notification newNotification = new Notification(User.currentUser.getEmail() /*todo: change this to username after setting username*/,eventType,"created a new Event. Interested?");
+            DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Notification");
+            myRef.setValue(newNotification);
+
         });
 
         mDatabase = FirebaseDatabase.getInstance().getReference().child("Events");

@@ -26,11 +26,28 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string-array name="events_array">
-        <item>Select Type</item>
+        <item>Select Category</item>
         <item>Movie</item>
         <item>Sports</item>
         <item>Entertainment</item>
         <item>Trips</item>
+    </string-array>
+
+    <string-array name="movies_events_array">
+        <item>Select Type</item>
+        <item>Horror</item>
+        <item>Comedy</item>
+        <item>Drama</item>
+        <item>Cartoon</item>
+        <item>Scifi</item>
+    </string-array>
+
+    <string-array name="sports_events_array">
+        <item>Select Type</item>
+        <item>Cricket</item>
+        <item>Baseball</item>
+        <item>Badminton</item>
+        <item>Tennis</item>
     </string-array>
 
 
