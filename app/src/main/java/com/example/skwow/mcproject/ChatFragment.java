@@ -27,7 +27,7 @@ public class ChatFragment extends Fragment {
     private Button sendButton;
     private DatabaseReference messagesDatabaseReference;
     private TextView messageBox;
-    private ArrayList<GroupMessage> messages = new ArrayList<>();
+    private ArrayList<Message> messages ;
     private RecyclerView rv_Chat;
     private ChatAdapter chatAdapter;
     private static ChatFragment fragment;
@@ -54,6 +54,8 @@ public class ChatFragment extends Fragment {
         messageBox = view.findViewById(R.id.messageBox);
         rv_Chat = view.findViewById(R.id.rv_chat);
 
+        messages = new ArrayList<>();
+
         rv_Chat.setLayoutManager(new LinearLayoutManager(getActivity()));
         chatAdapter = new ChatAdapter(getActivity());
 
@@ -65,12 +67,14 @@ public class ChatFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //TODO
-//                Group group = dataSnapshot.getValue(Group.class);
-//                if(group.getMessages().size() != 0) {
-//                    Log.d(TAG, "onDataChange: " + group.getMessages().size());
-//                    chatAdapter.setMessages(group.getMessages());
-//                    chatAdapter.notifyDataSetChanged();
-//                }
+
+                Group group = dataSnapshot.getValue(Group.class);
+                if(group.getMessages().size() != 0) {
+                    Log.d(TAG, "onDataChange: " + group.getMessages().size());
+                    messages = group.getMessages();
+                    chatAdapter.setMessages(group.getMessages());
+                    chatAdapter.notifyDataSetChanged();
+                }
 
 
             }
@@ -89,11 +93,12 @@ public class ChatFragment extends Fragment {
                 GroupMessage groupMessage = new GroupMessage(messageBox.getText().toString(),User.currentUser);
                 groupMessage.setSelfMessage(true);
 
-                //TODO The key of each message should be an integer so to populate an arraylist while taking data snapshot.
-                messagesDatabaseReference.child("messages").push().setValue(new Message(messageBox.getText().toString(), User.currentUser.getEmail(), User.currentUser.getUID()));
+                messages.add(new Message(messageBox.getText().toString(), User.currentUser.getEmail(), User.currentUser.getUID()));
+
+                messagesDatabaseReference.child("messages").setValue(messages);
 //                messages.add(groupMessage);
-//                chatAdapter.setMessages(messages);
-//                chatAdapter.notifyDataSetChanged();
+                chatAdapter.setMessages(messages);
+                chatAdapter.notifyDataSetChanged();
                 messageBox.setText("");
 
 

@@ -139,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User u = dataSnapshot.getValue(User.class);
-                Log.d(TAG, "onDataChange: " + u.getUID() + " " + u.getEvents().size() + " " + u.getSportsInterests().size() + " " + u.getEvents().get(0).getSalt());
+//                Log.d(TAG, "onDataChange: " + u.getUID() + " " + u.getEvents().size() + " " + u.getSportsInterests().size() + " " + u.getEvents().get(1).getSalt() + " " + u.getEvents().get(0).getCreatedBy());
 
                 u.setUID(user.getUid());
                 User.currentUser = u;

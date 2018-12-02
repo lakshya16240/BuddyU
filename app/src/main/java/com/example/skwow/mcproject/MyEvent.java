@@ -21,7 +21,7 @@ public class MyEvent
     private ArrayList<User> users = new ArrayList<>();
     private ArrayList<Message> messages = new ArrayList<>();
 
-    public MyEvent(String type, String venue, String time, float cost, String heading, String description, String createdBy, String imgLink) {
+    public MyEvent(String type, String venue, String time, float cost, String heading, String description, String createdBy, String imgLink,String salt) {
         this.type = type;
         Venue = venue;
         Time = time;
@@ -31,17 +31,22 @@ public class MyEvent
         this.createdBy = createdBy;
         imageLink = imgLink;
         users.add(User.currentUser);
+        this.salt = salt;
 
     }
     public String getSalt(){
         return salt;
     }
 
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
     public void addUser(User user){
         users.add(user);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference groupDatabaseReference = database.getReference("Groups");
-        groupDatabaseReference.child(salt).child("Users").setValue(users);
+        groupDatabaseReference.child(salt).child("users").setValue(users);
 
     }
 
