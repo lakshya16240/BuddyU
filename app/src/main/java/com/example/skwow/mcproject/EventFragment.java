@@ -46,6 +46,9 @@ public class EventFragment extends Fragment{
         final View view = inflater.inflate(R.layout.event_frament, container, false);
         recyclerView = view.findViewById(R.id.recyclerViewEvent);
         recyclerView.setHasFixedSize(true);
+        recyclerView.setItemViewCacheSize(20);
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         Spinner categorySpinner =   view.findViewById(R.id.sp_eventType);
         Spinner typeSpinner =   view.findViewById(R.id.sp_eventsubType);
@@ -127,7 +130,6 @@ public class EventFragment extends Fragment{
                                 flag = 1;
                             }
                         }
-
                         if(flag == 0) {
                             User.currentUser.addEvent(model);
                             model.addUser(User.currentUser);
