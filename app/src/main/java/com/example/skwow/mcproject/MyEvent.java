@@ -1,7 +1,10 @@
 package com.example.skwow.mcproject;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -45,9 +48,22 @@ public class MyEvent
     public void addUser(User user){
         users.add(user);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference groupDatabaseReference = database.getReference("Groups");
-        groupDatabaseReference.child(salt).child("users").setValue(users);
+        DatabaseReference groupDatabaseReference = database.getReference("Groups").child(salt).child("users");
+//        groupDatabaseReference.setValue(users);
 
+        groupDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                users = (ArrayList<User>) dataSnapshot.getValue();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        users.add(user);
+        groupDatabaseReference.setValue(users);
     }
 
     public String getImageLink() {
