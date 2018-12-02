@@ -86,17 +86,35 @@ public class EventFragment extends Fragment{
         createEventBtn.setOnClickListener(root -> {
             // todo: validate the data
 
-            // todo: this needs to be subtypes
+            if (categorySpinner.getSelectedItemPosition() == 0)
+            {
+                Toast.makeText(getContext(), "please select category 1st",Toast.LENGTH_LONG).show();
+                return;
+            }
             String eventType = typeSpinner.getSelectedItemPosition() == 0 ?"default": typeSpinner.getSelectedItem().toString();
+            String venue = ((EditText)view.findViewById(R.id.createEventVenue)).getText().toString();
+            if(venue.equals(""))
+            {
+                Toast.makeText(getContext(), "venue can't be emply",Toast.LENGTH_LONG).show();
+                return;
+            }
 
+            String timing =((EditText)view.findViewById(R.id.createEventTime)).getText().toString();
+            if(timing.equals(""))
+            {
+                Toast.makeText(getContext(), "timing can't be emply",Toast.LENGTH_LONG).show();
+                return;
+            }
+            String title = ((EditText)view.findViewById(R.id.createEventHeading)).getText().toString();
+            if(title.equals(""))
+            {
+                Toast.makeText(getContext(), "title can't be emply",Toast.LENGTH_LONG).show();
+                return;
+            }
+            String details = ((EditText)view.findViewById(R.id.et_optionalDetails)).getText().toString();
+            String imageLink = ((EditText)view.findViewById(R.id.eventImageLink)).getText().toString();
 
-            MyEvent event = new MyEvent(eventType,
-                                        ((EditText)view.findViewById(R.id.createEventVenue)).getText().toString(),
-                                        ((EditText)view.findViewById(R.id.createEventTime)).getText().toString(),
-                                        0,((EditText)view.findViewById(R.id.createEventHeading)).getText().toString(),
-                                        ((EditText)view.findViewById(R.id.et_optionalDetails)).getText().toString(),
-                                        User.currentUser.getUID(),
-                                        ((EditText)view.findViewById(R.id.eventImageLink)).getText().toString(),"");
+            MyEvent event = new MyEvent(eventType, venue, timing,0,title , details,User.currentUser.getUID(), imageLink,"");
             event.pushToDatabase();
             rl_eventFrom.setVisibility(View.GONE);
             User.currentUser.addEvent(event);
