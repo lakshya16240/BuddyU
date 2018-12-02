@@ -93,7 +93,7 @@ public class EventFragment extends Fragment{
                                         0,((EditText)view.findViewById(R.id.createEventHeading)).getText().toString(),
                                         ((EditText)view.findViewById(R.id.et_optionalDetails)).getText().toString(),
                                         User.currentUser.getUID(),
-                                        ((EditText)view.findViewById(R.id.eventImageLink)).getText().toString());
+                                        ((EditText)view.findViewById(R.id.eventImageLink)).getText().toString(),"");
             event.pushToDatabase();
             rl_eventFrom.setVisibility(View.GONE);
             User.currentUser.addEvent(event);

@@ -141,8 +141,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User u = dataSnapshot.getValue(User.class);
 
-                Log.d(TAG, "onDataChange: " + u.getUID() + " " + u.getEvents().size() + " " + u.getSportsInterests().size() );//+ " " + u.getEvents().get(0).getSalt());
-
                 u.setUID(user.getUid());
                 User.currentUser = u;
                 Intent i = new Intent(getBaseContext(), MainActivity.class);
