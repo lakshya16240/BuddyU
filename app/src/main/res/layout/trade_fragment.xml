@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainFragment"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         android:id="@+id/rl_eventForm"
@@ -15,39 +12,8 @@
         android:layout_height="wrap_content"
         android:paddingBottom="8dp">
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/llofspinners"
-            android:orientation="horizontal">
-            <Spinner
-                android:id="@+id/sp_eventType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/events_array"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp" />
-
-            <Spinner
-                android:id="@+id/sp_eventsubType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:entries="@array/events_array"
-                android:layout_marginTop="20dp" />
-        </LinearLayout>
-
-        <Spinner
-            android:id="@+id/sp_eventmoviepopulate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:visibility="gone"
-            android:layout_margin="10dp"
-            android:layout_below="@id/llofspinners"/>
-
         <EditText
-            android:id="@+id/createEventHeading"
+            android:id="@+id/et_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -56,18 +22,17 @@
             android:layout_marginEnd="8dp"
             android:layout_gravity="center_vertical"
             android:inputType="textPersonName"
-            android:hint="Title"
-            android:layout_below="@id/sp_eventmoviepopulate"/>
+            android:hint="Title" />
 
         <LinearLayout
-            android:id="@+id/linearLayoutDetails"
+            android:id="@+id/ll_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_below="@id/createEventHeading">
+            android:layout_below="@id/et_title">
 
             <EditText
-                android:id="@+id/createEventVenue"
+                android:id="@+id/et_type"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -76,11 +41,11 @@
                 android:layout_marginEnd="8dp"
                 android:layout_gravity="center_vertical"
                 android:inputType="textPersonName"
-                android:hint="Venue"/>
+                android:hint="Item Type"/>
 
             <EditText
                 android:layout_weight="1"
-                android:id="@+id/createEventTime"
+                android:id="@+id/et_price"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
@@ -88,37 +53,37 @@
                 android:ems="10"
                 android:layout_gravity="center_vertical"
                 android:inputType="textPersonName"
-                android:hint="Timings" />
+                android:hint="Price" />
         </LinearLayout>
 
         <EditText
-            android:id="@+id/et_optionalDetails"
+            android:id="@+id/et_optional"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:ems="10"
             android:inputType="textPersonName"
-            android:layout_below="@id/linearLayoutDetails"
+            android:layout_below="@id/ll_details"
             android:hint="Details (Optional)" />
 
         <EditText
-            android:id="@+id/eventImageLink"
+            android:id="@+id/et_imageLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:ems="10"
             android:inputType="textPersonName"
-            android:layout_below="@id/et_optionalDetails"
+            android:layout_below="@id/et_optional"
             android:hint="ImageLink (Optional)" />
 
         <Button android:layout_height="40dp"
             android:layout_width="wrap_content"
             android:textAlignment="center"
             android:text="Create"
-            android:id="@+id/createEvent"
+            android:id="@+id/bv_createTrade"
             android:background="@drawable/background_signup"
             android:layout_centerHorizontal="true"
-            android:layout_below="@id/eventImageLink">
+            android:layout_below="@id/et_imageLink">
 
         </Button>
 
@@ -126,17 +91,60 @@
             android:layout_width="match_parent"
             android:layout_height="5dp"
             android:background="@android:color/darker_gray"
-            android:layout_below="@id/createEvent"
+            android:layout_below="@id/bv_createTrade"
             android:layout_marginTop="4dp"/>
 
     </RelativeLayout>
 
+    <LinearLayout
+        android:id="@+id/fab_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="end|bottom"
+        android:visibility="invisible"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_above="@id/fab_trade">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fab2_name"
+            android:paddingRight="3dp"
+            android:layout_gravity="center"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_createTrade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_add_event"
+            android:layout_marginRight="@dimen/fab_margin_right"
+            android:backgroundTint="@color/fab2"
+            app:pressedTranslationZ="10dp"
+            android:visibility="invisible"/>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_trade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ic_action_plus"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/fab_margin_right"
+        android:layout_marginBottom="20dp"
+        app:pressedTranslationZ="10dp"/>
+
+
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerViewEvent"
+        android:id="@+id/rv_trade"
+        android:layout_below="@id/rl_eventForm"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2">
+        android:layout_height="match_parent">
 
     </android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+</RelativeLayout>
