@@ -49,7 +49,6 @@ public class MyEvent
         users.add(user);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference groupDatabaseReference = database.getReference("Groups").child(salt).child("users");
-//        groupDatabaseReference.setValue(users);
 
         groupDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override

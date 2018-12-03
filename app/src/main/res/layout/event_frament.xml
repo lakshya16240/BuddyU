@@ -10,7 +10,7 @@
 
     <RelativeLayout
         android:id="@+id/rl_eventForm"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="8dp">
@@ -37,6 +37,14 @@
                 android:layout_marginTop="20dp" />
         </LinearLayout>
 
+        <Spinner
+            android:id="@+id/sp_eventmoviepopulate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            android:layout_margin="10dp"
+            android:layout_below="@id/llofspinners"/>
 
         <EditText
             android:id="@+id/createEventHeading"
@@ -49,7 +57,7 @@
             android:layout_gravity="center_vertical"
             android:inputType="textPersonName"
             android:hint="Title"
-            android:layout_below="@id/llofspinners"/>
+            android:layout_below="@id/sp_eventmoviepopulate"/>
 
         <LinearLayout
             android:id="@+id/linearLayoutDetails"
