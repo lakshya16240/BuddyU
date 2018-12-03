@@ -8,8 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class TradeStuff extends Fragment
-{
+public class TradeStuff extends Fragment {
 
     public static final String TAG = "tradeFragment";
     public TradeStuff() { }
