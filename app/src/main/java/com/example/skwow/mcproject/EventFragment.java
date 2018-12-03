@@ -46,26 +46,38 @@ public class EventFragment extends Fragment{
         final View view = inflater.inflate(R.layout.event_frament, container, false);
         recyclerView = view.findViewById(R.id.recyclerViewEvent);
         recyclerView.setHasFixedSize(true);
+        recyclerView.setItemViewCacheSize(20);
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         Spinner categorySpinner =   view.findViewById(R.id.sp_eventType);
         Spinner typeSpinner =   view.findViewById(R.id.sp_eventsubType);
+        Spinner populateSpinner =   view.findViewById(R.id.sp_eventmoviepopulate);
 
         rl_eventFrom = view.findViewById(R.id.rl_eventForm);
         createEventBtn = view.findViewById(R.id.createEvent);
         ArrayAdapter<String> movieAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.movies_events_array));
         ArrayAdapter<String> sportsAdapter = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.sports_events_array));
-
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                ArrayList<String> movienames = new ArrayList<>();
+                movienames.add("Suggestions");
+                for(Movie m : Movie.allMovies)
+                    movienames.add(m.name);
+                ArrayAdapter<String> moviePopulateAdapter  = new ArrayAdapter<String>(getContext(),android.R.layout.simple_spinner_dropdown_item, movienames);
+
                 if(categorySpinner.getSelectedItem().toString().equals("Movie"))
                 {
                     typeSpinner.setVisibility(View.VISIBLE);
+                    populateSpinner.setVisibility(View.VISIBLE);
                     typeSpinner.setAdapter(movieAdapter);
+                    populateSpinner.setAdapter(moviePopulateAdapter);
                 }
                 else if(categorySpinner.getSelectedItem().toString().equals("Sports"))
                 {
                     typeSpinner.setVisibility(View.VISIBLE);
+                    populateSpinner.setVisibility(View.GONE);
                     typeSpinner.setAdapter(sportsAdapter);
                 }
                 else
@@ -80,20 +92,71 @@ public class EventFragment extends Fragment{
             }
         });
 
+        populateSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View v, int i, long l) {
+                if(populateSpinner.getSelectedItemPosition() == 0)
+                {
+                    ((EditText)view.findViewById(R.id.createEventVenue)).setText("");
+                    ((EditText)view.findViewById(R.id.createEventTime)).setText("");
+                    ((EditText)view.findViewById(R.id.createEventHeading)).setText("");
+                    ((EditText)view.findViewById(R.id.eventImageLink)).setText("");
+                }
+                else
+                {
+                    String mn = populateSpinner.getSelectedItem().toString();
+                    for(Movie m : Movie.allMovies)
+                    {
+                        if (mn.equals(m.name))
+                        {
+                            ((EditText)view.findViewById(R.id.createEventVenue)).setText(m.venue);
+                            ((EditText)view.findViewById(R.id.createEventTime)).setText(m.timing);
+                            ((EditText)view.findViewById(R.id.createEventHeading)).setText(m.name);
+                            ((EditText)view.findViewById(R.id.eventImageLink)).setText(m.imageLink);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
         createEventBtn.setOnClickListener(root -> {
             // todo: validate the data
 
-            // todo: this needs to be subtypes
+            if (categorySpinner.getSelectedItemPosition() == 0)
+            {
+                Toast.makeText(getContext(), "please select category 1st",Toast.LENGTH_LONG).show();
+                return;
+            }
             String eventType = typeSpinner.getSelectedItemPosition() == 0 ?"default": typeSpinner.getSelectedItem().toString();
+            String venue = ((EditText)view.findViewById(R.id.createEventVenue)).getText().toString();
+            if(venue.equals(""))
+            {
+                Toast.makeText(getContext(), "venue can't be emply",Toast.LENGTH_LONG).show();
+                return;
+            }
 
+            String timing =((EditText)view.findViewById(R.id.createEventTime)).getText().toString();
+            if(timing.equals(""))
+            {
+                Toast.makeText(getContext(), "timing can't be emply",Toast.LENGTH_LONG).show();
+                return;
+            }
+            String title = ((EditText)view.findViewById(R.id.createEventHeading)).getText().toString();
+            if(title.equals(""))
+            {
+                Toast.makeText(getContext(), "title can't be emply",Toast.LENGTH_LONG).show();
+                return;
+            }
+            String details = ((EditText)view.findViewById(R.id.et_optionalDetails)).getText().toString();
+            String imageLink = ((EditText)view.findViewById(R.id.eventImageLink)).getText().toString();
 
-            MyEvent event = new MyEvent(eventType,
-                                        ((EditText)view.findViewById(R.id.createEventVenue)).getText().toString(),
-                                        ((EditText)view.findViewById(R.id.createEventTime)).getText().toString(),
-                                        0,((EditText)view.findViewById(R.id.createEventHeading)).getText().toString(),
-                                        ((EditText)view.findViewById(R.id.et_optionalDetails)).getText().toString(),
-                                        User.currentUser.getUID(),
-                                        ((EditText)view.findViewById(R.id.eventImageLink)).getText().toString(),"");
+            MyEvent event = new MyEvent(eventType, venue, timing,0,title , details,User.currentUser.getUID(), imageLink,"");
             event.pushToDatabase();
             rl_eventFrom.setVisibility(View.GONE);
             User.currentUser.addEvent(event);
@@ -130,7 +193,6 @@ public class EventFragment extends Fragment{
                                 flag = 1;
                             }
                         }
-
                         if(flag == 0) {
                             User.currentUser.addEvent(model);
                             model.addUser(User.currentUser);

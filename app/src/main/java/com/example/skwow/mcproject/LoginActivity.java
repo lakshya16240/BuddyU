@@ -148,7 +148,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User u = dataSnapshot.getValue(User.class);
-
+                if(u == null)
+                    return;
                 u.setUID(user.getUid());
                 User.currentUser = u;
                 Intent i = new Intent(getBaseContext(), MainActivity.class);

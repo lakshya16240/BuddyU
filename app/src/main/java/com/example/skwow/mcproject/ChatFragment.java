@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -63,11 +64,9 @@ public class ChatFragment extends Fragment {
 
         messagesDatabaseReference = FirebaseDatabase.getInstance().getReference("Groups").child(eventId);
 
-        messagesDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        messagesDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                //TODO
-
                 Group group = dataSnapshot.getValue(Group.class);
                 if(group.getMessages().size() != 0) {
                     Log.d(TAG, "onDataChange: " + group.getMessages().size());
@@ -75,8 +74,6 @@ public class ChatFragment extends Fragment {
                     chatAdapter.setMessages(group.getMessages());
                     chatAdapter.notifyDataSetChanged();
                 }
-
-
             }
 
             @Override
@@ -84,6 +81,8 @@ public class ChatFragment extends Fragment {
 
             }
         });
+
+
 
         rv_Chat.setAdapter(chatAdapter);
 
