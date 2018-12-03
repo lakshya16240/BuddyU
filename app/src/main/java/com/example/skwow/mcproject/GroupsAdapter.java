@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupViewH
     class GroupViewHolder extends RecyclerView.ViewHolder{
 
         private TextView tv_eventTitle, tv_eventVenue, tv_eventTiming;
-        private CardView rl_group;
+        private RelativeLayout rl_group;
 
         public GroupViewHolder(@NonNull View itemView) {
             super(itemView);
