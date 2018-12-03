@@ -88,24 +88,24 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
     }
 
-    public void onChipClick(View view)
-    {
-        if (view instanceof Button)
-        {
-            Button btn = (Button) view;
-            if( btn.getTag().equals("0"))
-            {
-                btn.setTag("1");
-                btn.setBackgroundResource(R.drawable.my_chip_selected);
-            }
-            else
-            {
-                btn.setTag("0");
-                btn.setBackgroundResource(R.drawable.my_chip);
-            }
-        }
-
-    }
+//    public void onChipClick(View view)
+//    {
+//        if (view instanceof Button)
+//        {
+//            Button btn = (Button) view;
+//            if( btn.getTag().equals("0"))
+//            {
+//                btn.setTag("1");
+//                btn.setBackgroundResource(R.drawable.my_chip_selected);
+//            }
+//            else
+//            {
+//                btn.setTag("0");
+//                btn.setBackgroundResource(R.drawable.my_chip);
+//            }
+//        }
+//
+//    }
 
 
 

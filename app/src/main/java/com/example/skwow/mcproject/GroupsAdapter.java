@@ -41,7 +41,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupViewH
         groupViewHolder.tv_eventVenue.setText(groupViewHolder.tv_eventVenue.getText().toString() + groups.get(i).getVenue());
         groupViewHolder.tv_eventTiming.setText(groupViewHolder.tv_eventTiming.getText().toString() + groups.get(i).getTime());
 
-        groupViewHolder.cv_group.setOnClickListener(new View.OnClickListener() {
+        groupViewHolder.rl_group.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ChatFragment chatFragment = ChatFragment.newInstance(groups.get(i).getSalt());
@@ -65,14 +65,14 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupViewH
     class GroupViewHolder extends RecyclerView.ViewHolder{
 
         private TextView tv_eventTitle, tv_eventVenue, tv_eventTiming;
-        private CardView cv_group;
+        private CardView rl_group;
 
         public GroupViewHolder(@NonNull View itemView) {
             super(itemView);
             tv_eventTitle = itemView.findViewById(R.id.tv_eventTitle);
             tv_eventVenue = itemView.findViewById(R.id.tv_eventVenue);
             tv_eventTiming = itemView.findViewById(R.id.tv_eventTiming);
-            cv_group = itemView.findViewById(R.id.cv_group);
+            rl_group = itemView.findViewById(R.id.rl_group);
         }
     }
 }

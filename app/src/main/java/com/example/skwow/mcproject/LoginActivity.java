@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
     public Button signInButton;
     private TextView feedback;
     private ProgressBar progressBar;
-
+    private Button registerButton;
     private FirebaseAuth mAuth;
 
     @Override
@@ -68,13 +68,21 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-
+        registerButton = findViewById(R.id.registerButton);
         emailEditText = (EditText)findViewById(R.id.email);
         passwordEditText = (EditText)findViewById(R.id.password);
+
         signInButton = (Button) findViewById(R.id.email_sign_in_button);
         feedback = (TextView) findViewById(R.id.feedback);
         progressBar = (ProgressBar) findViewById(R.id.login_progress);
         progressBar.setVisibility(View.VISIBLE);
+
+//        registerButton.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
 
     @Override

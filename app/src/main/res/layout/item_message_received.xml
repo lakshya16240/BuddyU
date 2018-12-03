@@ -15,7 +15,7 @@
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:textColor="#FF6E00"/>
+        android:textColor="#6c5ce7"/>
 
     <TextView
         android:id="@+id/tv_message_body_received"
