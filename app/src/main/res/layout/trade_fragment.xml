@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:id="@+id/rl_eventForm"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="8dp">
+
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_gravity="center_vertical"
+            android:inputType="textPersonName"
+            android:hint="Title" />
+
+        <LinearLayout
+            android:id="@+id/ll_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_below="@id/et_title">
+
+            <EditText
+                android:id="@+id/et_type"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_gravity="center_vertical"
+                android:inputType="textPersonName"
+                android:hint="Item Type"/>
+
+            <EditText
+                android:layout_weight="1"
+                android:id="@+id/et_price"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:ems="10"
+                android:layout_gravity="center_vertical"
+                android:inputType="textPersonName"
+                android:hint="Price" />
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_optional"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:layout_below="@id/ll_details"
+            android:hint="Details (Optional)" />
+
+        <EditText
+            android:id="@+id/et_imageLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:layout_below="@id/et_optional"
+            android:hint="ImageLink (Optional)" />
+
+        <Button android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:textAlignment="center"
+            android:text="Create"
+            android:id="@+id/bv_createTrade"
+            android:background="@drawable/background_signup"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/et_imageLink">
+
+        </Button>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@android:color/darker_gray"
+            android:layout_below="@id/bv_createTrade"
+            android:layout_marginTop="4dp"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/fab_box"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="end|bottom"
+        android:visibility="invisible"
+        android:layout_marginBottom="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_above="@id/fab_trade">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fab2_name"
+            android:paddingRight="3dp"
+            android:layout_gravity="center"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab_createTrade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_action_add_event"
+            android:layout_marginRight="@dimen/fab_margin_right"
+            android:backgroundTint="@color/fab2"
+            app:pressedTranslationZ="10dp"
+            android:visibility="invisible"/>
+
+    </LinearLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_trade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/ic_action_plus"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/fab_margin_right"
+        android:layout_marginBottom="20dp"
+        app:pressedTranslationZ="10dp"/>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_trade"
+        android:layout_below="@id/rl_eventForm"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

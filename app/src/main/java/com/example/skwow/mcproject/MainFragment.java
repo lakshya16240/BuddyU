@@ -1,6 +1,5 @@
 package com.example.skwow.mcproject;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
@@ -17,14 +16,6 @@ import android.widget.LinearLayout;
 import java.util.ArrayList;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MainFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MainFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MainFragment extends Fragment {
 
     private static final String ARG_PAGE = "arg_page";
@@ -76,6 +67,7 @@ public class MainFragment extends Fragment {
         FabRotationAntiClockwise = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_anticlockwise);
 
         fragmentArrayList.add(new EventFragment());
+        fragmentArrayList.add(new TradeFragment());
 //        fragmentArrayList.add(new SportsFragment());
 //        fragmentArrayList.add(new EntertainmentFragment());
 //        fragmentArrayList.add(new TripFragment());
