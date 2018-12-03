@@ -122,6 +122,25 @@ public class AccountFragment extends Fragment {
         Toast.makeText(getContext(), "Saved",Toast.LENGTH_LONG).show();
     }
 
+    public void onChipClickAccount(View view)
+    {
+        if (view instanceof Button)
+        {
+            Button btn = (Button) view;
+            if( btn.getTag().equals("0"))
+            {
+                btn.setTag("1");
+                btn.setBackgroundResource(R.drawable.my_chip_selected);
+            }
+            else
+            {
+                btn.setTag("0");
+                btn.setBackgroundResource(R.drawable.my_chip);
+            }
+        }
+
+    }
+
     @Override
     public void onDetach() {
         super.onDetach();

@@ -77,11 +77,6 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    public void onSignInButtonClicked(View view) {
-        Intent i = new Intent(getBaseContext(), LoginActivity.class);
-        startActivity(i);
-        finish();
-    }
 
     /*
     Checks validity of Email and Password entered by the user.

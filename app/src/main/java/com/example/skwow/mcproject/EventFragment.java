@@ -171,11 +171,14 @@ public class EventFragment extends Fragment{
         FirebaseRecyclerAdapter<MyEvent,movieViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<MyEvent, movieViewHolder>(MyEvent.class,R.layout.list_layout_event,movieViewHolder.class,mDatabase)
         {
             @Override
-            protected void populateViewHolder(movieViewHolder viewHolder, MyEvent model, int position) {
+            protected void populateViewHolder(movieViewHolder viewHolder, MyEvent model, int position) { // myevent -> model
+
                 viewHolder.textViewTitle.setText(model.getHeading());
                 viewHolder.textViewVenue.setText(model.getVenue()+" "+ model.getTime());
                 if(model.getImageLink().length()!=0)
                     Picasso.with(getContext()).load(model.getImageLink()).into(viewHolder.imageView);
+                else
+                    Picasso.with(getContext()).load(R.drawable.buddyu).into(viewHolder.imageView);
 
                 Log.d(TAG, "populateViewHolder: " + User.currentUser.getUID());
                 if(model.getCreatedBy().equals(User.currentUser.getUID()))
@@ -214,6 +217,7 @@ public class EventFragment extends Fragment{
         public movieViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
+
             imageView = itemView.findViewById(R.id.imageView);
             textViewTitle = itemView.findViewById(R.id.textViewTitle);
             textViewVenue = itemView.findViewById(R.id.eventVenue);
