@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,6 +52,10 @@ public class AccountFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_account, container, false);
         Button logoutBtn = root.findViewById(R.id.Logout);
         Button saveProfile = root.findViewById(R.id.saveProfile);
+        TextView username = root.findViewById(R.id.user_name);
+        username.setText(User.currentUser.getEmail());
+        TextView eventCount = root.findViewById(R.id.event_count);
+        eventCount.setText("events: " + User.currentUser.getEvents().size());
 
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override

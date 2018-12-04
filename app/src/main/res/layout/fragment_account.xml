@@ -43,7 +43,7 @@
 
                 <TextView
                     android:id="@+id/user_name"
-                    android:layout_width="100dp"
+                    android:layout_width="wrap_content"
                     android:textAlignment="center"
                     android:layout_height="22dp"
                     android:hint="User Name"
@@ -61,7 +61,7 @@
 
             </LinearLayout>
 
-            <ImageButton
+            <!--ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
@@ -72,7 +72,7 @@
                 android:layout_marginRight="20dp"
                 android:id="@+id/editProfile"
                 android:src="@drawable/ic_action_edit_button"
-                android:backgroundTint="@color/colorAccent"/>
+                android:backgroundTint="@color/colorAccent"/-->
 
         </RelativeLayout>
 
