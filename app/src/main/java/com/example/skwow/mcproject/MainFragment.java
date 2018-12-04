@@ -67,7 +67,7 @@ public class MainFragment extends Fragment {
         FabRotationAntiClockwise = AnimationUtils.loadAnimation(getContext(), R.anim.rotate_anticlockwise);
 
         fragmentArrayList.add(new EventFragment());
-        fragmentArrayList.add(new TradeFragment());
+        //fragmentArrayList.add(new TradeFragment());
 //        fragmentArrayList.add(new SportsFragment());
 //        fragmentArrayList.add(new EntertainmentFragment());
 //        fragmentArrayList.add(new TripFragment());

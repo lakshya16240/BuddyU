@@ -110,7 +110,7 @@ public class EventFragment extends Fragment{
                         if (mn.equals(m.name))
                         {
                             ((EditText)view.findViewById(R.id.createEventVenue)).setText(m.venue);
-                            ((EditText)view.findViewById(R.id.createEventTime)).setText(m.timing);
+                            ((EditText)view.findViewById(R.id.createEventTime)).setText(m.time);
                             ((EditText)view.findViewById(R.id.createEventHeading)).setText(m.name);
                             ((EditText)view.findViewById(R.id.eventImageLink)).setText(m.imageLink);
                             break;
@@ -196,7 +196,12 @@ public class EventFragment extends Fragment{
                         if(flag == 0) {
                             User.currentUser.addEvent(model);
                             model.addUser(User.currentUser);
+                            Toast.makeText(getContext(), "You have been added to this group",Toast.LENGTH_LONG).show();
                         }
+                        else {
+                            Toast.makeText(getContext(), "You are already part of this group", Toast.LENGTH_SHORT).show();
+                        }
+
                         groups.add(model);
                     }
                 });

@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference groupDatabaseReference = database.getReference("movies");
+        DatabaseReference groupDatabaseReference = database.getReference("Movies");
 
         groupDatabaseReference.addValueEventListener(new ValueEventListener() {
             @Override

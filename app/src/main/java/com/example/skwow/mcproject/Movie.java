@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Movie
 {
     String name;
-    String timing;
+    String time;
     String venue;
 
     @Exclude
@@ -23,11 +23,11 @@ public class Movie
     }
 
     public String getTiming() {
-        return timing;
+        return time;
     }
 
     public void setTiming(String timing) {
-        this.timing = timing;
+        this.time = timing;
     }
 
     public String getVenue() {
@@ -52,7 +52,7 @@ public class Movie
 
     public Movie(String name, String timing, String venue, String imageLink) {
         this.name = name;
-        this.timing = timing;
+        this.time = timing;
         this.venue = venue;
         this.imageLink = imageLink;
     }
